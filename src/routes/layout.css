@@ -1,0 +1,274 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+
+/*
+ * Sprout — tokens duales (oscuro por defecto, claro vía data-theme).
+ */
+@theme {
+	/* Tokens base = OSCURO (default) */
+	--color-bg: #0d0e0f;
+	--color-surface: #16181a;
+	--color-surface-2: #1d1f21;
+	--color-surface-sink: #101113;
+
+	--color-ink: #f1f3ef;
+	--color-muted: #949891;
+	--color-faint: #5c605a;
+
+	--color-track: #272a2b;
+	--color-border: rgba(255, 255, 255, 0.09);
+	--color-border-strong: rgba(255, 255, 255, 0.18);
+
+	--color-accent: #34e07e;
+	--color-accent-deep: #21b968;
+	--color-accent-soft: rgba(52, 196, 97, 0.16);
+
+	--font-disp: 'Familjen Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
+	--font-body: 'Hanken Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+/* Modo claro — overrides cuando data-theme="light" */
+:root[data-theme='light'] {
+	--color-bg: #fafaf8;
+	--color-surface: #ffffff;
+	--color-surface-2: #f1f2ef;
+	--color-surface-sink: #eaebe7;
+
+	--color-ink: #16181a;
+	--color-muted: #6a6f68;
+	--color-faint: #a7aba3;
+
+	--color-track: #e7e9e4;
+	--color-border: rgba(18, 22, 16, 0.1);
+	--color-border-strong: rgba(18, 22, 16, 0.18);
+
+	--color-accent: #149e54;
+	--color-accent-deep: #0c6e3a;
+	--color-accent-soft: rgba(31, 169, 74, 0.12);
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	background-color: var(--color-bg) !important;
+	color: var(--color-ink) !important;
+	font-family: var(--font-body);
+	-webkit-font-smoothing: antialiased;
+	transition:
+		background-color 280ms cubic-bezier(0.4, 0, 0.2, 1),
+		color 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+body {
+	overscroll-behavior-y: none;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+/* Scrollbar invisible globalmente (sin perder scroll) */
+* {
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+*::-webkit-scrollbar {
+	display: none;
+	width: 0;
+	height: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	font-family: var(--font-disp);
+}
+
+/* Selección con verde de marca */
+::selection {
+	background: color-mix(in oklab, var(--color-accent) 40%, transparent);
+	color: var(--color-ink);
+}
+
+/*
+ * Sin focus inline (azul del navegador) en NINGÚN input.
+ * El indicador visual de foco es el cambio de border-color + background
+ * que ya manejan los componentes (TextInput, MoneyInput, etc.).
+ */
+*:focus,
+*:focus-visible {
+	outline: none !important;
+}
+
+input,
+textarea,
+select,
+button {
+	outline: none !important;
+	-webkit-tap-highlight-color: transparent;
+}
+
+input:focus,
+input:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+select:focus,
+select:focus-visible,
+button:focus,
+button:focus-visible {
+	outline: none !important;
+	box-shadow: none;
+}
+
+/* Quita el ring/halo amarillo de Chrome al autofill */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+	-webkit-text-fill-color: var(--color-ink);
+	-webkit-box-shadow: 0 0 0 1000px var(--color-surface) inset !important;
+	transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/* ─────────────────────────────────────────────
+ * Animaciones de entrada por módulo
+ * Todas arrancan visibles (opacity >= 0.85) para
+ * no causar parpadeo / flash invisible.
+ * ───────────────────────────────────────────── */
+
+/* Inicio: rise (10px abajo → 0) */
+.enter-rise {
+	animation: enterRise 540ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+@keyframes enterRise {
+	from {
+		opacity: 0.45;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Meta detalle: focus (escala notoria + opacity) */
+.enter-focus {
+	animation: enterFocus 580ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+@keyframes enterFocus {
+	from {
+		opacity: 0.55;
+		transform: scale(0.965);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+/* Resumen: slide desde la izquierda (14px → 0) */
+.enter-slide-l {
+	animation: enterSlideL 560ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+@keyframes enterSlideL {
+	from {
+		opacity: 0.5;
+		transform: translateX(-16px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+/* Resumen segundo bloque: slide desde la derecha */
+.enter-slide-r {
+	animation: enterSlideR 560ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+@keyframes enterSlideR {
+	from {
+		opacity: 0.5;
+		transform: translateX(16px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+/* Historial: cascada con subida notoria */
+.enter-cascade {
+	animation: enterCascade 500ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+@keyframes enterCascade {
+	from {
+		opacity: 0.45;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Ajustes: fade con leve baja-sube (sin desplazamiento horizontal) */
+.enter-soft {
+	animation: enterSoft 600ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+@keyframes enterSoft {
+	from {
+		opacity: 0.5;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Nueva meta: bloom (scale + rise, sensación de algo "abriéndose") */
+.enter-bloom {
+	animation: enterBloom 620ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+	transform-origin: top center;
+}
+@keyframes enterBloom {
+	from {
+		opacity: 0.4;
+		transform: translateY(14px) scale(0.96);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.enter-rise,
+	.enter-focus,
+	.enter-slide-l,
+	.enter-slide-r,
+	.enter-cascade,
+	.enter-soft,
+	.enter-bloom {
+		animation: none;
+	}
+}
+
+/* Spinner genérico (se referencia como animation:spin en estilos inline). */
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
