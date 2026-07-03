@@ -121,7 +121,7 @@
 		display: flex;
 		align-items: center;
 		background: var(--color-surface-2);
-		border: 1.5px solid var(--color-border);
+		border: 1.5px solid transparent;
 		border-radius: 16px;
 		transition:
 			border-color 160ms cubic-bezier(0.4, 0, 0.2, 1),
@@ -129,7 +129,6 @@
 	}
 	.money.focused {
 		background: var(--color-surface);
-		border-color: var(--color-border-strong);
 	}
 	.sym {
 		font-family: var(--font-disp);

@@ -22,6 +22,24 @@
 	let open = $state(false);
 	let cont: HTMLDivElement;
 	let sel = $derived(options.find((o) => o.value === value));
+	// Menú con position:fixed (escapa overflow:hidden) y auto-flip arriba/abajo.
+	let menuPos = $state({ top: 0, left: 0, width: 200 });
+
+	function toggle() {
+		if (open) {
+			open = false;
+			return;
+		}
+		if (cont && typeof window !== 'undefined') {
+			const rect = cont.getBoundingClientRect();
+			const menuH = Math.min(252, options.length * 46 + 12);
+			const spaceBelow = window.innerHeight - rect.bottom;
+			const goUp = up || (spaceBelow < menuH + 12 && rect.top > spaceBelow);
+			const top = goUp ? rect.top - menuH - 8 : rect.bottom + 8;
+			menuPos = { top: Math.max(12, top), left: rect.left, width: rect.width };
+		}
+		open = true;
+	}
 
 	function pick(v: string) {
 		value = v;
@@ -49,10 +67,10 @@
 <div bind:this={cont} style="position:relative;">
 	<button
 		type="button"
-		onclick={() => (open = !open)}
+		onclick={toggle}
 		style={`width:100%;font-family:var(--font-body);font-weight:700;font-size:${big ? 18 : 15.5}px;` +
 			`background:${open ? 'var(--color-surface)' : 'var(--color-surface-2)'};` +
-			`border:1.5px solid ${open ? 'var(--color-border-strong)' : 'var(--color-border)'};` +
+			`border:1.5px solid transparent;` +
 			`border-radius:14px;padding:14px 16px;cursor:pointer;color:var(--color-ink);` +
 			`display:flex;align-items:center;justify-content:space-between;outline:none;`}
 	>
@@ -79,8 +97,9 @@
 	</button>
 	{#if open}
 		<div
-			style={`position:absolute;${up ? 'bottom' : 'top'}:calc(100% + 8px);left:0;right:0;z-index:120;` +
-				`background:var(--color-surface);border-radius:16px;padding:6px;max-height:252px;overflow-y:auto;`}
+			style={`position:fixed;top:${menuPos.top}px;left:${menuPos.left}px;width:${menuPos.width}px;z-index:9999;` +
+				`background:var(--color-surface);border-radius:16px;padding:6px;max-height:252px;overflow-y:auto;` +
+				`box-shadow:0 16px 40px -8px rgba(0,0,0,0.5), 0 0 0 1px var(--color-border);`}
 		>
 			{#each options as o (o.value)}
 				{@const a = o.value === value}

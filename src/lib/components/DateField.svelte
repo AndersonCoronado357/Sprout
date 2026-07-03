@@ -23,14 +23,15 @@
 	let cont: HTMLDivElement;
 	let calPos = $state({ top: 0, left: 0, width: 300 }); // posición fija calculada
 	const CAL_HEIGHT = 360;
-	const CAL_WIDTH = 300;
 
 	function abrirCerrar() {
 		if (open) {
 			open = false;
 			return;
 		}
-		// Posicionamos con position: fixed para escapar overflow:hidden de padres.
+		// position: fixed para escapar overflow:hidden de padres. El calendario
+		// toma el MISMO ancho que el input y se ancla a su izquierda: lo que crece
+		// es el alto, no se desplaza horizontalmente.
 		if (cont && typeof window !== 'undefined') {
 			const rect = cont.getBoundingClientRect();
 			const spaceBelow = window.innerHeight - rect.bottom;
@@ -38,13 +39,7 @@
 			// Si está forzado up, o no cabe abajo pero sí arriba → arriba
 			const goUp = up || (spaceBelow < CAL_HEIGHT && spaceAbove > spaceBelow);
 			const top = goUp ? rect.top - CAL_HEIGHT - 8 : rect.bottom + 8;
-			// Mantener dentro de la ventana horizontalmente
-			let left = rect.left;
-			if (left + CAL_WIDTH > window.innerWidth - 12) {
-				left = window.innerWidth - CAL_WIDTH - 12;
-			}
-			if (left < 12) left = 12;
-			calPos = { top: Math.max(12, top), left, width: CAL_WIDTH };
+			calPos = { top: Math.max(12, top), left: rect.left, width: rect.width };
 		}
 		open = true;
 	}
@@ -128,7 +123,7 @@
 		onclick={abrirCerrar}
 		style={`width:100%;font-family:var(--font-body);font-weight:700;font-size:${big ? 18 : compact ? 14 : 15.5}px;color:${sel ? 'var(--color-ink)' : 'var(--color-faint)'};` +
 			`background:${open ? 'var(--color-surface)' : 'var(--color-surface-2)'};` +
-			`border:1.5px solid ${open ? 'var(--color-border-strong)' : 'var(--color-border)'};` +
+			`border:1.5px solid transparent;` +
 			`border-radius:${compact ? 12 : 14}px;padding:${compact ? '9px 14px' : '14px 16px'};outline:none;cursor:pointer;` +
 			`display:flex;align-items:center;justify-content:space-between;transition:border-color .16s,background .16s;min-height:${compact ? 40 : 'auto'};`}
 	>
