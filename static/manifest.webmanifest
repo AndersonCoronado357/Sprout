@@ -1,0 +1,28 @@
+{
+  "name": "Sprout — Ahorra por metas",
+  "short_name": "Sprout",
+  "description": "Mira crecer tus ahorros, una meta a la vez.",
+  "lang": "es",
+  "dir": "ltr",
+  "start_url": "/inicio",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0D0E0F",
+  "theme_color": "#0D0E0F",
+  "categories": ["finance", "productivity", "lifestyle"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
