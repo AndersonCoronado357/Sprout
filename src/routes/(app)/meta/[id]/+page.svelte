@@ -418,7 +418,9 @@
 
 		<!-- 2-col grid: hero+sugerencia / aportes — stretch para ocupar 100% -->
 		<div
-			style={`display:grid;grid-template-columns:${mob ? '1fr' : '1.3fr 1fr'};grid-template-rows:minmax(0, 1fr);gap:18px;align-items:stretch;flex:1;min-height:0;overflow:hidden;`}
+			style={mob
+				? 'display:flex;flex-direction:column;gap:18px;'
+				: 'display:grid;grid-template-columns:1.3fr 1fr;grid-template-rows:minmax(0, 1fr);gap:18px;align-items:stretch;flex:1;min-height:0;overflow:hidden;'}
 		>
 			<div style="display:flex;flex-direction:column;gap:18px;min-height:0;align-self:stretch;">
 				<!-- HERO BLOCK (crece para llenar) -->
@@ -616,8 +618,9 @@
 			<!-- APORTES — estirada al row track (align-self: stretch del grid) -->
 			<div
 				class="enter-focus"
-				style="background:var(--color-surface);border-radius:20px;padding:20px 22px;
-				display:flex;flex-direction:column;min-height:0;overflow:hidden;align-self:stretch;animation-delay:200ms;"
+				style={`background:var(--color-surface);border-radius:20px;padding:20px 22px;` +
+					`display:flex;flex-direction:column;align-self:stretch;animation-delay:200ms;` +
+					(mob ? '' : 'min-height:0;overflow:hidden;')}
 			>
 				<div
 					style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-shrink:0;"
@@ -634,7 +637,8 @@
 					</span>
 				</div>
 				<div
-					style="flex:1 1 0;min-height:0;overflow-y:auto;margin:0 -4px;padding:0 4px;"
+					style={`margin:0 -4px;padding:0 4px;` +
+						(mob ? '' : 'flex:1 1 0;min-height:0;overflow-y:auto;')}
 				>
 					{#if contribs.length === 0}
 						<div

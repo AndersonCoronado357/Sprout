@@ -125,7 +125,9 @@
 	/>
 
 	<div
-		style={`display:grid;grid-template-columns:${mob ? '1fr' : '1.05fr 0.95fr'};gap:${mob ? 0 : '30px'};flex:1;min-height:0;align-items:stretch;`}
+		style={mob
+			? 'display:block;'
+			: 'display:grid;grid-template-columns:1.05fr 0.95fr;gap:30px;flex:1;min-height:0;align-items:stretch;'}
 	>
 		<div class="enter-bloom" style="display:flex;flex-direction:column;min-height:0;animation-delay:60ms;">
 			<!-- Step dots -->
@@ -145,7 +147,7 @@
 				{/each}
 			</div>
 
-			<div style="flex:1;position:relative;overflow:hidden;">
+			<div style={mob ? 'position:relative;' : 'flex:1;position:relative;overflow:hidden;'}>
 				{#key step}
 					<div
 						style="position:relative;"

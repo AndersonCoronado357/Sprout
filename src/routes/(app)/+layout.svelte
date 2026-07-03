@@ -154,7 +154,8 @@
 				style="position:relative;z-index:1;flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;"
 			>
 				<div
-					style={`width:100%;flex:1;min-height:0;padding:${mob ? 'clamp(16px, 5vw, 26px) clamp(16px, 5vw, 26px) 24px' : 'clamp(22px, 3vw, 44px)'};display:flex;flex-direction:column;`}
+					style={`width:100%;padding:${mob ? 'clamp(16px, 5vw, 26px) clamp(16px, 5vw, 26px) 24px' : 'clamp(22px, 3vw, 44px)'};` +
+						(mob ? 'display:block;' : 'flex:1;min-height:0;display:flex;flex-direction:column;')}
 				>
 					{@render children()}
 				</div>
