@@ -115,7 +115,8 @@
 </svelte:head>
 
 <div
-	style="display:flex;flex-direction:column;flex:1;min-height:0;width:100%;"
+	style={`display:flex;flex-direction:column;flex:1;width:100%;` +
+		(mob ? 'min-height:calc(100dvh - 140px);' : 'min-height:0;')}
 >
 	<TopBar
 		onBack={() =>
@@ -126,10 +127,10 @@
 
 	<div
 		style={mob
-			? 'display:block;'
+			? 'display:flex;flex-direction:column;flex:1;min-height:0;'
 			: 'display:grid;grid-template-columns:1.05fr 0.95fr;gap:30px;flex:1;min-height:0;align-items:stretch;'}
 	>
-		<div class="enter-bloom" style="display:flex;flex-direction:column;min-height:0;animation-delay:60ms;">
+		<div class="enter-bloom" style="display:flex;flex-direction:column;flex:1;min-height:0;animation-delay:60ms;">
 			<!-- Step dots -->
 			<div style="display:flex;gap:8px;margin-bottom:22px;">
 				{#each steps as s, i}
@@ -147,7 +148,7 @@
 				{/each}
 			</div>
 
-			<div style={mob ? 'position:relative;' : 'flex:1;position:relative;overflow:hidden;'}>
+			<div style={mob ? 'flex:1;position:relative;' : 'flex:1;position:relative;overflow:hidden;'}>
 				{#key step}
 					<div
 						style="position:relative;"
@@ -216,10 +217,9 @@
 								<Field label="Fecha tentativa" hint="¿Para cuándo lo quieres?">
 									<DateField bind:value={date} big />
 								</Field>
-								{#if Number(target) > 0}
+								{#if Number(target) >= 0}
 									<div
 										style="background:var(--color-accent-soft);border-radius:18px;padding:18px 20px;"
-										in:fly={{ y: 10, duration: 280, easing: cubicOut }}
 									>
 										<div
 											style="font-family:var(--font-body);font-weight:700;font-size:13px;color:var(--color-accent-deep);

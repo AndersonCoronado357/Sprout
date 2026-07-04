@@ -75,9 +75,10 @@
 	<!-- HERO -->
 	<div
 		class="enter-rise"
-		style={`border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:${mob ? '20px 0' : '22px 0'};` +
+		style={(mob ? 'position:sticky;top:0;z-index:5;background:var(--color-surface-sink);' : '') +
+			`border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:${mob ? '14px 0' : '22px 0'};` +
 			`display:flex;flex-direction:${mob ? 'column' : 'row'};flex-wrap:wrap;` +
-			`gap:${mob ? 18 : 40}px;row-gap:18px;align-items:${mob ? 'flex-start' : 'center'};justify-content:space-between;`}
+			`gap:${mob ? 14 : 40}px;row-gap:14px;align-items:${mob ? 'flex-start' : 'center'};justify-content:space-between;`}
 	>
 		<div>
 			<div

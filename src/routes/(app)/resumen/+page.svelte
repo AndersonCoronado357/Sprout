@@ -4,6 +4,7 @@
 	import TopBar from '$lib/components/TopBar.svelte';
 	import Card from '$lib/components/Card.svelte';
 	import MonthBars from '$lib/components/MonthBars.svelte';
+	import SegSwitch from '$lib/components/SegSwitch.svelte';
 	import { CATS } from '$lib/data/mock';
 	import { appState } from '$lib/state.svelte';
 	import { fmtMoney, fmtCompact, goalSaved, goalPct, MES } from '$lib/format';
@@ -13,6 +14,8 @@
 	let GOALS = $derived(appState.goals);
 
 	let mob = $state(false);
+	// En móvil se muestra una vista a la vez (Meses / Categoría) para que quepa sin scroll.
+	let vista = $state<'meses' | 'cat'>('meses');
 	function calcMob() {
 		mob = typeof window !== 'undefined' && window.innerWidth < 860;
 	}
@@ -112,11 +115,26 @@
 		</div>
 	</div>
 
+	{#if mob}
+		<div class="enter-slide-r" style="animation-delay:100ms;">
+			<SegSwitch
+				full
+				value={vista}
+				onChange={(v) => (vista = v as 'meses' | 'cat')}
+				options={[
+					{ value: 'meses', label: 'Meses', icon: 'chart' },
+					{ value: 'cat', label: 'Categoría', icon: 'filter' }
+				]}
+			/>
+		</div>
+	{/if}
+
 	<div
 		class="enter-slide-r"
 		style={`display:grid;grid-template-columns:${mob ? '1fr' : '1.35fr 1fr'};gap:18px;align-items:stretch;flex:1;min-height:0;animation-delay:120ms;`}
 	>
-		<Card style="height:100%;display:flex;flex-direction:column;">
+		{#if !mob || vista === 'meses'}
+			<Card style="height:100%;display:flex;flex-direction:column;">
 			<div
 				style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"
 			>
@@ -136,7 +154,9 @@
 				<MonthBars data={months} {cur} />
 			</div>
 		</Card>
+		{/if}
 
+		{#if !mob || vista === 'cat'}
 		<Card style="height:100%;display:flex;flex-direction:column;">
 			<span
 				style="font-family:var(--font-disp);font-weight:600;font-size:18px;color:var(--color-ink);"
@@ -177,5 +197,6 @@
 				{/each}
 			</div>
 		</Card>
+		{/if}
 	</div>
 </div>

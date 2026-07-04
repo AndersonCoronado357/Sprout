@@ -392,15 +392,23 @@
 					</div>
 				</div>
 
-				<!-- Fila 2: $ input + fecha + Cancelar + Guardar — TODOS A 40px -->
-				<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-					<div style="flex:1 1 220px;min-width:180px;">
+				<!-- Filas: monto / fecha (su propia fila) / botones — apiladas en móvil -->
+				<div
+					style={mob
+						? 'display:flex;flex-direction:column;gap:12px;'
+						: 'display:flex;gap:10px;align-items:center;flex-wrap:wrap;'}
+				>
+					<div style={mob ? '' : 'flex:1 1 220px;min-width:180px;'}>
 						<MoneyInput bind:value={amt} {cur} compact max={maxAmt} />
 					</div>
-					<div style="flex:0 1 180px;min-width:140px;">
+					<div style={mob ? '' : 'flex:0 1 180px;min-width:140px;'}>
 						<DateField bind:value={date} compact />
 					</div>
-					<div style="display:flex;gap:6px;align-items:center;">
+					<div
+						style={mob
+							? 'display:flex;gap:8px;align-items:center;justify-content:flex-end;'
+							: 'display:flex;gap:6px;align-items:center;'}
+					>
 						<Btn size="sm" variant="plain" onclick={cancelar}>Cancelar</Btn>
 						<Btn
 							size="sm"
@@ -665,7 +673,7 @@
 										<input
 											bind:value={eNote}
 											placeholder="Nota (opcional)"
-											style="width:100%;background:var(--color-surface);border:1.5px solid var(--color-border);
+											style="width:100%;background:var(--color-surface);border:1.5px solid transparent;
 											border-radius:12px;padding:9px 14px;font-family:var(--font-body);font-size:14px;color:var(--color-ink);outline:none;"
 										/>
 										<div style="display:flex;gap:8px;justify-content:flex-end;align-items:center;">
