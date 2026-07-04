@@ -89,13 +89,13 @@ export async function usernameTaken(username: string): Promise<boolean> {
 
 export async function createUser(input: {
 	name: string;
-	username: string;
+	username?: string | null;
 	email: string;
 	passwordHash: string;
 }): Promise<AuthUser> {
 	const [res] = await pool.query<ResultSetHeader>(
 		'INSERT INTO users (name, username, email, initials, streak, password_hash) VALUES (?, ?, ?, ?, 0, ?)',
-		[input.name, input.username, input.email, initialsFrom(input.name), input.passwordHash]
+		[input.name, input.username ?? null, input.email, initialsFrom(input.name), input.passwordHash]
 	);
 	const user = await getUserById(res.insertId);
 	return user!;

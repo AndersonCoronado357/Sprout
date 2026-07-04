@@ -12,10 +12,9 @@
 
 	type Mode = 'in' | 'up' | 'recover';
 	let mode = $state<Mode>('in');
-	let email = $state(''); // en modo 'in' sirve como correo o usuario
+	let email = $state('');
 	let pass = $state('');
 	let name = $state('');
-	let username = $state('');
 	let sent = $state(false);
 	let errorMsg = $state('');
 	let cargando = $state(false);
@@ -66,7 +65,7 @@
 		cargando = true;
 		let r: { ok: boolean; msg?: string };
 		if (mode === 'up') {
-			r = await post('/auth/register', { name, username, email, password: pass });
+			r = await post('/auth/register', { name, email, password: pass });
 		} else {
 			r = await post('/auth/login', { login: email, password: pass });
 		}
@@ -256,11 +255,7 @@
 	<div
 		style={`position:absolute;top:clamp(20px, 3vw, 34px);left:clamp(20px, 3vw, 40px);display:flex;align-items:center;gap:11px;color:${fg};z-index:2;`}
 	>
-		<span
-			style={`width:42px;height:42px;border-radius:13px;background:${chipBg};display:grid;place-items:center;`}
-		>
-			<Logo size={30} />
-		</span>
+		<Logo size={40} />
 		<span
 			style="font-family:var(--font-disp);font-weight:700;font-size:24px;letter-spacing:-0.02em;"
 		>
@@ -275,13 +270,13 @@
 				in:fly={{ y: 14, duration: 380, easing: cubicOut, delay: 60 }}
 			>
 				<div
-					style={`display:${mob && mode === 'up' ? 'none' : 'block'};font-family:var(--font-body);font-weight:800;font-size:12.5px;` +
+					style={`display:${mob ? 'none' : 'block'};font-family:var(--font-body);font-weight:800;font-size:12.5px;` +
 						`letter-spacing:0.14em;text-transform:uppercase;opacity:0.72;margin-bottom:14px;`}
 				>
 					{cp.eye}
 				</div>
 				<h1
-					style={`font-family:var(--font-disp);font-weight:700;font-size:${mob ? 29 : 'clamp(36px, 3.8vw, 54px)'};` +
+					style={`font-family:var(--font-disp);font-weight:700;font-size:${mob ? 25 : 'clamp(36px, 3.8vw, 54px)'};` +
 						`line-height:1.04;margin:0;letter-spacing:-0.03em;`}
 				>
 					{cp.t1}<br />{cp.t2}
@@ -401,16 +396,13 @@
 								<Field label="Tu nombre">
 									<TextInput bind:value={name} placeholder="Nombre y apellido" icon="user" />
 								</Field>
-								<Field label="Usuario">
-									<TextInput bind:value={username} placeholder="tu_usuario" icon="user" />
-								</Field>
 							{/if}
-							<Field label={mode === 'up' ? 'Correo' : 'Correo o usuario'}>
+							<Field label="Correo">
 								<TextInput
 									bind:value={email}
-									placeholder={mode === 'up' ? 'tucorreo@email.com' : 'correo o usuario'}
+									placeholder="tucorreo@email.com"
 									icon="note"
-									type={mode === 'up' ? 'email' : 'text'}
+									type="email"
 								/>
 							</Field>
 							{#if mode !== 'recover'}
@@ -523,7 +515,7 @@
 	{#if mob}
 		<div
 			style={`position:relative;z-index:3;height:100%;overflow-y:auto;display:flex;flex-direction:column;justify-content:center;` +
-				`gap:${mode === 'up' ? 18 : 30}px;padding:58px 20px 22px;`}
+				`gap:${mode === 'up' ? 14 : 20}px;padding:30px 20px 20px;`}
 		>
 			<div>{@render Headline()}</div>
 			<div style="display:flex;justify-content:center;">{@render CardForm()}</div>
