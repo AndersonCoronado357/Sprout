@@ -115,8 +115,8 @@
 </svelte:head>
 
 <div
-	style={`display:flex;flex-direction:column;flex:1;width:100%;` +
-		(mob ? 'height:calc(100dvh - 140px);overflow:hidden;' : 'min-height:0;')}
+	style={`display:flex;flex-direction:column;flex:1;min-height:0;width:100%;` +
+		(mob ? 'overflow:hidden;' : '')}
 >
 	<TopBar
 		onBack={() =>
@@ -132,7 +132,7 @@
 	>
 		<div class="enter-bloom" style="display:flex;flex-direction:column;flex:1;min-height:0;animation-delay:60ms;">
 			<!-- Step dots -->
-			<div style="display:flex;gap:8px;margin-bottom:22px;flex-shrink:0;">
+			<div style={`display:flex;gap:8px;margin-bottom:${mob ? 14 : 22}px;flex-shrink:0;`}>
 				{#each steps as s, i}
 					<div style="flex:1;">
 						<div
@@ -210,45 +210,45 @@
 								</div>
 							</div>
 						{:else if step === 1}
-							<div style="display:flex;flex-direction:column;gap:22px;">
+							<div style={`display:flex;flex-direction:column;gap:${mob ? 12 : 22}px;`}>
 								<Field label="Monto objetivo" hint="¿Cuánto necesitas reunir?">
-									<MoneyInput bind:value={target} {cur} big autofocus />
+									<MoneyInput bind:value={target} {cur} big={!mob} autofocus />
 								</Field>
 								<Field label="Fecha tentativa" hint="¿Para cuándo lo quieres?">
-									<DateField bind:value={date} big />
+									<DateField bind:value={date} big={!mob} />
 								</Field>
 								{#if Number(target) >= 0}
 									<div
-										style="background:var(--color-accent-soft);border-radius:18px;padding:18px 20px;"
+										style={`background:var(--color-accent-soft);border-radius:18px;padding:${mob ? '10px 16px' : '18px 20px'};`}
 									>
 										<div
-											style="font-family:var(--font-body);font-weight:700;font-size:13px;color:var(--color-accent-deep);
-											margin-bottom:10px;display:flex;align-items:center;gap:7px;"
+											style={`font-family:var(--font-body);font-weight:700;font-size:12.5px;color:var(--color-accent-deep);
+											margin-bottom:${mob ? 6 : 10}px;display:flex;align-items:center;gap:7px;`}
 										>
-											<Icon name="sprout" size={17} />
+											<Icon name="sprout" size={16} />
 											Para llegar a tiempo tendrías que ahorrar
 										</div>
-										<div style="display:flex;gap:22px;">
+										<div style={`display:flex;gap:${mob ? 16 : 22}px;`}>
 											<div>
 												<span
-													style="font-family:var(--font-disp);font-weight:700;font-size:28px;color:var(--color-accent-deep);"
+													style={`font-family:var(--font-disp);font-weight:700;font-size:${mob ? 22 : 28}px;color:var(--color-accent-deep);`}
 												>
 													{fmtMoney(sug.perWeek, cur)}
 												</span>
 												<span
-													style="font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--color-accent-deep);opacity:0.8;"
+													style="font-family:var(--font-body);font-weight:600;font-size:12.5px;color:var(--color-accent-deep);opacity:0.8;"
 												>
 													/semana
 												</span>
 											</div>
 											<div>
 												<span
-													style="font-family:var(--font-disp);font-weight:700;font-size:28px;color:var(--color-accent-deep);"
+													style={`font-family:var(--font-disp);font-weight:700;font-size:${mob ? 22 : 28}px;color:var(--color-accent-deep);`}
 												>
 													{fmtMoney(sug.perMonth, cur)}
 												</span>
 												<span
-													style="font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--color-accent-deep);opacity:0.8;"
+													style="font-family:var(--font-body);font-weight:600;font-size:12.5px;color:var(--color-accent-deep);opacity:0.8;"
 												>
 													/mes
 												</span>
@@ -284,7 +284,7 @@
 				{/key}
 			</div>
 
-			<div style="display:flex;gap:12px;margin-top:26px;flex-shrink:0;">
+			<div style={`display:flex;gap:12px;margin-top:${mob ? 14 : 26}px;flex-shrink:0;`}>
 				{#if step < 2}
 					<Btn size="lg" full={mob} iconRight="chevR" disabled={!canNext} onclick={() => (step = step + 1)}>
 						Continuar
