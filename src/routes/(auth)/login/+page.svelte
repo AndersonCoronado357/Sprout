@@ -251,9 +251,9 @@
 		</svg>
 	</div>
 
-	<!-- Logo top-left -->
+	<!-- Logo top-left (solo desktop; en móvil va inline arriba del formulario) -->
 	<div
-		style={`position:absolute;top:clamp(20px, 3vw, 34px);left:clamp(20px, 3vw, 40px);display:flex;align-items:center;gap:11px;color:${fg};z-index:2;`}
+		style={`display:${mob ? 'none' : 'flex'};position:absolute;top:clamp(20px, 3vw, 34px);left:clamp(20px, 3vw, 40px);align-items:center;gap:11px;color:${fg};z-index:2;`}
 	>
 		<Logo size={40} />
 		<span
@@ -515,8 +515,14 @@
 	{#if mob}
 		<div
 			style={`position:relative;z-index:3;height:100%;overflow-y:auto;display:flex;flex-direction:column;justify-content:center;` +
-				`gap:${mode === 'up' ? 14 : 20}px;padding:30px 20px 20px;`}
+				`gap:${mode === 'up' ? 12 : 16}px;padding:18px 20px 20px;`}
 		>
+			<div style={`display:flex;align-items:center;gap:9px;color:${fg};`}>
+				<Logo size={30} />
+				<span style="font-family:var(--font-disp);font-weight:700;font-size:19px;letter-spacing:-0.02em;">
+					Sprout
+				</span>
+			</div>
 			<div>{@render Headline()}</div>
 			<div style="display:flex;justify-content:center;">{@render CardForm()}</div>
 		</div>

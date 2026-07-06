@@ -8,7 +8,7 @@
 </script>
 
 <div
-	style="display:flex;align-items:flex-end;gap:10px;height:100%;min-height:150px;padding-top:22px;"
+	style="display:flex;align-items:flex-end;gap:10px;height:100%;min-height:110px;padding-top:22px;"
 >
 	{#each data as d, i}
 		{@const top = d.value === max && d.value > 0}

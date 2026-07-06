@@ -67,15 +67,15 @@
 </svelte:head>
 
 <div
-	style="display:flex;flex-direction:column;gap:22px;flex:1;min-height:0;width:100%;"
+	style={`display:flex;flex-direction:column;gap:${mob ? 14 : 22}px;flex:1;min-height:0;width:100%;`}
 >
 	<TopBar big title="Tu resumen" sub="Todo lo que has hecho crecer, en un vistazo." />
 
 	<div
 		class="enter-slide-l"
-		style={`border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:22px 0;` +
-			`display:flex;flex-direction:${mob ? 'column' : 'row'};flex-wrap:wrap;gap:${mob ? 18 : 40}px;row-gap:18px;` +
-			`align-items:${mob ? 'flex-start' : 'center'};justify-content:space-between;`}
+		style={`border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:${mob ? 14 : 22}px 0;` +
+			`display:flex;flex-direction:${mob ? 'column' : 'row'};flex-wrap:wrap;gap:${mob ? 10 : 40}px;row-gap:10px;` +
+			`align-items:${mob ? 'flex-start' : 'center'};justify-content:space-between;flex-shrink:0;`}
 	>
 		<div>
 			<div
@@ -134,9 +134,9 @@
 		style={`display:grid;grid-template-columns:${mob ? '1fr' : '1.35fr 1fr'};gap:18px;align-items:stretch;flex:1;min-height:0;animation-delay:120ms;`}
 	>
 		{#if !mob || vista === 'meses'}
-			<Card style="height:100%;display:flex;flex-direction:column;">
+			<Card style="height:100%;min-height:0;display:flex;flex-direction:column;">
 			<div
-				style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"
+				style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-shrink:0;"
 			>
 				<span
 					style="font-family:var(--font-disp);font-weight:600;font-size:18px;color:var(--color-ink);"
@@ -150,21 +150,21 @@
 					últimos 6 meses
 				</span>
 			</div>
-			<div style={`flex:1;min-height:${mob ? 170 : 220}px;`}>
+			<div style={`flex:1;min-height:0;`}>
 				<MonthBars data={months} {cur} />
 			</div>
 		</Card>
 		{/if}
 
 		{#if !mob || vista === 'cat'}
-		<Card style="height:100%;display:flex;flex-direction:column;">
+		<Card style="height:100%;min-height:0;display:flex;flex-direction:column;">
 			<span
-				style="font-family:var(--font-disp);font-weight:600;font-size:18px;color:var(--color-ink);"
+				style="font-family:var(--font-disp);font-weight:600;font-size:18px;color:var(--color-ink);flex-shrink:0;"
 			>
 				Por categoría
 			</span>
 			<div
-				style="margin-top:16px;flex:1;display:flex;flex-direction:column;justify-content:space-between;gap:14px;"
+				style="margin-top:16px;flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;justify-content:space-between;gap:14px;"
 			>
 				{#each catRows as [k, v]}
 					<div>

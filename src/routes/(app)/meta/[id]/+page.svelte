@@ -152,6 +152,8 @@
 			.filter((q): q is number => q !== null && q > 0)
 			.filter((q, i, a) => a.indexOf(q) === i)
 	);
+	// En móvil, menos chips para que compartan fila con el switch sin partirse.
+	let visibleQuickAmounts = $derived(mob ? quickAmounts.slice(0, 2) : quickAmounts);
 
 	let promedioAporte = $derived(
 		contribs.length > 0 ? Math.round(saved / contribs.length) : 0
@@ -230,7 +232,7 @@
 					icon="edit"
 					onclick={() => goto(`/meta/nueva?edit=${goal.id}`)}
 				>
-					{mob ? '' : 'Editar'}
+					{#if !mob}Editar{/if}
 				</Btn>
 			{/snippet}
 		</TopBar>
@@ -347,18 +349,18 @@
 				style="background:var(--color-surface-2);border-radius:20px;padding:18px 20px;flex-shrink:0;
 				display:flex;flex-direction:column;gap:14px;animation-delay:60ms;"
 			>
-				<!-- Fila 1: selector Aporte/Retiro + chips -->
-				<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+				<!-- Fila 1: selector Aporte/Retiro + chips (una sola fila, sin partirse) -->
+				<div style={`display:flex;align-items:center;justify-content:space-between;gap:8px;${mob ? 'flex-wrap:nowrap;' : 'flex-wrap:wrap;'}`}>
 					<div
-						style="display:inline-flex;background:var(--color-surface);border-radius:999px;padding:3px;gap:2px;"
+						style="display:inline-flex;background:var(--color-surface);border-radius:999px;padding:3px;gap:2px;flex-shrink:0;"
 					>
 						{#each [['aporte', 'Aporte'], ['retiro', 'Retiro']] as [val, label]}
 							{@const on = tipo === val}
 							<button
 								type="button"
 								onclick={() => (tipo = val as 'aporte' | 'retiro')}
-								style={`padding:7px 16px;border-radius:999px;border:none;cursor:pointer;` +
-									`font-family:var(--font-disp);font-weight:700;font-size:14px;transition:all .15s;` +
+								style={`padding:${mob ? '6px 12px' : '7px 16px'};border-radius:999px;border:none;cursor:pointer;` +
+									`font-family:var(--font-disp);font-weight:700;font-size:${mob ? 13 : 14}px;transition:all .15s;white-space:nowrap;` +
 									(on
 										? val === 'retiro'
 											? 'background:#B45309;color:#fff;'
@@ -369,13 +371,13 @@
 							</button>
 						{/each}
 					</div>
-					<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;">
-						{#each quickAmounts as q}
+					<div style={`display:flex;gap:${mob ? 6 : 8}px;justify-content:flex-end;min-width:0;${mob ? 'flex-wrap:nowrap;' : 'flex-wrap:wrap;'}`}>
+						{#each visibleQuickAmounts as q}
 							<button
 								type="button"
 								onclick={() => (amt = (Number(amt) || 0) + q)}
-								style={`padding:7px 13px;border-radius:999px;border:none;background:var(--color-surface);` +
-									`cursor:pointer;font-family:var(--font-body);font-weight:700;font-size:12.5px;` +
+								style={`padding:${mob ? '6px 10px' : '7px 13px'};border-radius:999px;border:none;background:var(--color-surface);` +
+									`cursor:pointer;font-family:var(--font-body);font-weight:700;font-size:${mob ? 11.5 : 12.5}px;` +
 									`color:${esRetiro ? '#D08326' : 'var(--color-accent-deep)'};` +
 									`transition:background .15s;white-space:nowrap;`}
 								onmouseenter={(e) =>
