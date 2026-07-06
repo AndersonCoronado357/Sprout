@@ -116,7 +116,7 @@
 
 <div
 	style={`display:flex;flex-direction:column;flex:1;width:100%;` +
-		(mob ? 'min-height:calc(100dvh - 140px);' : 'min-height:0;')}
+		(mob ? 'height:calc(100dvh - 140px);overflow:hidden;' : 'min-height:0;')}
 >
 	<TopBar
 		onBack={() =>
@@ -132,7 +132,7 @@
 	>
 		<div class="enter-bloom" style="display:flex;flex-direction:column;flex:1;min-height:0;animation-delay:60ms;">
 			<!-- Step dots -->
-			<div style="display:flex;gap:8px;margin-bottom:22px;">
+			<div style="display:flex;gap:8px;margin-bottom:22px;flex-shrink:0;">
 				{#each steps as s, i}
 					<div style="flex:1;">
 						<div
@@ -148,7 +148,7 @@
 				{/each}
 			</div>
 
-			<div style={mob ? 'flex:1;position:relative;' : 'flex:1;position:relative;overflow:hidden;'}>
+			<div style={mob ? 'flex:1;min-height:0;overflow-y:auto;position:relative;' : 'flex:1;position:relative;overflow:hidden;'}>
 				{#key step}
 					<div
 						style="position:relative;"
@@ -284,7 +284,7 @@
 				{/key}
 			</div>
 
-			<div style="display:flex;gap:12px;margin-top:26px;">
+			<div style="display:flex;gap:12px;margin-top:26px;flex-shrink:0;">
 				{#if step < 2}
 					<Btn size="lg" full={mob} iconRight="chevR" disabled={!canNext} onclick={() => (step = step + 1)}>
 						Continuar

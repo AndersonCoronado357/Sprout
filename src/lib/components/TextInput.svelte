@@ -56,7 +56,7 @@
 			onfocus={() => (foc = true)}
 			onblur={() => (foc = false)}
 			style={`width:100%;font-family:var(--font-body);font-weight:600;font-size:${big ? 19 : 16}px;color:var(--color-ink);` +
-				`background:${foc ? 'var(--color-surface)' : 'var(--color-surface-2)'};` +
+				`background:color-mix(in oklab, var(--color-ink) ${foc ? 10 : 6}%, var(--color-surface-2));` +
 				`border:1.5px solid transparent;` +
 				`border-radius:14px;padding:14px 16px;padding-left:${icon ? 44 : 16}px;padding-right:${showToggle ? 46 : 16}px;` +
 				`outline:none;transition:border-color .16s,background .16s;box-sizing:border-box;`}
@@ -72,7 +72,7 @@
 			onfocus={() => (foc = true)}
 			onblur={() => (foc = false)}
 			style={`width:100%;font-family:var(--font-body);font-weight:600;font-size:${big ? 19 : 16}px;color:var(--color-ink);` +
-				`background:${foc ? 'var(--color-surface)' : 'var(--color-surface-2)'};` +
+				`background:color-mix(in oklab, var(--color-ink) ${foc ? 10 : 6}%, var(--color-surface-2));` +
 				`border:1.5px solid transparent;` +
 				`border-radius:14px;padding:14px 16px;padding-left:${icon ? 44 : 16}px;padding-right:16px;` +
 				`outline:none;transition:border-color .16s,background .16s;box-sizing:border-box;`}

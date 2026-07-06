@@ -72,11 +72,11 @@
 		{/snippet}
 	</TopBar>
 
-	<!-- HERO -->
+	<!-- HERO + FILTROS: en móvil quedan pegados arriba juntos; solo la grilla scrollea -->
+	<div style={mob ? 'position:sticky;top:0;z-index:5;background:var(--color-surface-sink);display:flex;flex-direction:column;gap:14px;padding-bottom:12px;' : ''}>
 	<div
 		class="enter-rise"
-		style={(mob ? 'position:sticky;top:0;z-index:5;background:var(--color-surface-sink);' : '') +
-			`border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:${mob ? '14px 0' : '22px 0'};` +
+		style={`border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:${mob ? '14px 0 0' : '22px 0'};` +
 			`display:flex;flex-direction:${mob ? 'column' : 'row'};flex-wrap:wrap;` +
 			`gap:${mob ? 14 : 40}px;row-gap:14px;align-items:${mob ? 'flex-start' : 'center'};justify-content:space-between;`}
 	>
@@ -164,6 +164,7 @@
 				{CATS[c].label}
 			</Chip>
 		{/each}
+	</div>
 	</div>
 
 	<!-- GRID DE METAS -->

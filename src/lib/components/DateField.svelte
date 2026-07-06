@@ -21,7 +21,9 @@
 
 	let open = $state(false);
 	let cont: HTMLDivElement;
-	let calPos = $state({ top: 0, left: 0, width: 300 }); // posición fija calculada
+	let calPos = $state({ top: 0, left: 0, width: 300 }); // posición fija calculada (solo desktop)
+	let goUp = $state(false);
+	let mobUI = $state(false);
 	const CAL_HEIGHT = 360;
 
 	function abrirCerrar() {
@@ -29,17 +31,19 @@
 			open = false;
 			return;
 		}
-		// position: fixed para escapar overflow:hidden de padres. El calendario
-		// toma el MISMO ancho que el input y se ancla a su izquierda: lo que crece
-		// es el alto, no se desplaza horizontalmente.
+		mobUI = typeof window !== 'undefined' && window.innerWidth < 860;
 		if (cont && typeof window !== 'undefined') {
 			const rect = cont.getBoundingClientRect();
 			const spaceBelow = window.innerHeight - rect.bottom;
 			const spaceAbove = rect.top;
 			// Si está forzado up, o no cabe abajo pero sí arriba → arriba
-			const goUp = up || (spaceBelow < CAL_HEIGHT && spaceAbove > spaceBelow);
-			const top = goUp ? rect.top - CAL_HEIGHT - 8 : rect.bottom + 8;
-			calPos = { top: Math.max(12, top), left: rect.left, width: rect.width };
+			goUp = up || (spaceBelow < CAL_HEIGHT && spaceAbove > spaceBelow);
+			if (!mobUI) {
+				// Desktop: position:fixed para escapar overflow:hidden de padres.
+				// Mismo ancho que el input, anclado a su izquierda.
+				const top = goUp ? rect.top - CAL_HEIGHT - 8 : rect.bottom + 8;
+				calPos = { top: Math.max(12, top), left: rect.left, width: rect.width };
+			}
 		}
 		open = true;
 	}
@@ -122,7 +126,7 @@
 		type="button"
 		onclick={abrirCerrar}
 		style={`width:100%;font-family:var(--font-body);font-weight:700;font-size:${big ? 18 : compact ? 14 : 15.5}px;color:${sel ? 'var(--color-ink)' : 'var(--color-faint)'};` +
-			`background:${open ? 'var(--color-surface)' : 'var(--color-surface-2)'};` +
+			`background:color-mix(in oklab, var(--color-ink) ${open ? 10 : 6}%, var(--color-surface-2));` +
 			`border:1.5px solid transparent;` +
 			`border-radius:${compact ? 12 : 14}px;padding:${compact ? '9px 14px' : '14px 16px'};outline:none;cursor:pointer;` +
 			`display:flex;align-items:center;justify-content:space-between;transition:border-color .16s,background .16s;min-height:${compact ? 40 : 'auto'};`}
@@ -144,9 +148,13 @@
 
 	{#if open}
 		<div
-			style={`position:fixed;top:${calPos.top}px;left:${calPos.left}px;z-index:9999;` +
-				`width:${calPos.width}px;max-width:92vw;background:var(--color-surface);border-radius:18px;padding:14px;` +
-				`box-shadow:0 16px 40px -8px rgba(0,0,0,0.5), 0 0 0 1px var(--color-border);`}
+			style={mobUI
+				? `position:absolute;${goUp ? 'bottom' : 'top'}:calc(100% + 8px);left:0;right:0;z-index:9999;` +
+					`background:var(--color-surface);border-radius:18px;padding:14px;` +
+					`box-shadow:0 16px 40px -8px rgba(0,0,0,0.5);`
+				: `position:fixed;top:${calPos.top}px;left:${calPos.left}px;z-index:9999;` +
+					`width:${calPos.width}px;max-width:92vw;background:var(--color-surface);border-radius:18px;padding:14px;` +
+					`box-shadow:0 16px 40px -8px rgba(0,0,0,0.5);`}
 		>
 			<div
 				style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;"

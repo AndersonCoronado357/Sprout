@@ -120,7 +120,7 @@
 		position: relative;
 		display: flex;
 		align-items: center;
-		background: var(--color-surface-2);
+		background: color-mix(in oklab, var(--color-ink) 6%, var(--color-surface-2));
 		border: 1.5px solid transparent;
 		border-radius: 16px;
 		transition:
@@ -128,7 +128,7 @@
 			background-color 160ms cubic-bezier(0.4, 0, 0.2, 1);
 	}
 	.money.focused {
-		background: var(--color-surface);
+		background: color-mix(in oklab, var(--color-ink) 10%, var(--color-surface-2));
 	}
 	.sym {
 		font-family: var(--font-disp);

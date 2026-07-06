@@ -214,7 +214,8 @@
 	</div>
 {:else}
 	<div
-		style="display:flex;flex-direction:column;gap:18px;width:100%;height:100%;min-height:0;overflow:hidden;"
+		style={`display:flex;flex-direction:column;gap:18px;width:100%;` +
+			(mob ? '' : 'height:100%;min-height:0;overflow:hidden;')}
 	>
 		<TopBar onBack={() => goto('/inicio')} title={goal.name}>
 			{#snippet subSnippet()}
