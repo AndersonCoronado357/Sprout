@@ -161,7 +161,7 @@
 										bind:value={name}
 										placeholder="Ej. Viaje a San Andrés"
 										big
-										autofocus
+										autofocus={!mob}
 									/>
 								</Field>
 								<div>
@@ -212,7 +212,7 @@
 						{:else if step === 1}
 							<div style={`display:flex;flex-direction:column;gap:${mob ? 12 : 22}px;`}>
 								<Field label="Monto objetivo" hint="¿Cuánto necesitas reunir?">
-									<MoneyInput bind:value={target} {cur} big={!mob} autofocus />
+									<MoneyInput bind:value={target} {cur} big={!mob} autofocus={!mob} />
 								</Field>
 								<Field label="Fecha tentativa" hint="¿Para cuándo lo quieres?">
 									<DateField bind:value={date} big={!mob} />
