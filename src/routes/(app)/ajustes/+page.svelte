@@ -19,6 +19,11 @@
 	}
 	onMount(() => {
 		calcMob();
+		// Recuerda si el usuario dejó los recordatorios activados (y el permiso sigue dado).
+		notif =
+			localStorage.getItem('sprout-notif') === 'on' &&
+			typeof Notification !== 'undefined' &&
+			Notification.permission === 'granted';
 		window.addEventListener('resize', calcMob);
 		return () => window.removeEventListener('resize', calcMob);
 	});
@@ -107,11 +112,15 @@
 		const prendiendo = !notif;
 		notif = prendiendo;
 		notifMsg = '';
-		if (!prendiendo) return;
+		if (!prendiendo) {
+			localStorage.setItem('sprout-notif', 'off');
+			return;
+		}
 
 		if (typeof Notification === 'undefined') {
 			notifMsg = 'Tu navegador no soporta notificaciones.';
 			notif = false;
+			localStorage.setItem('sprout-notif', 'off');
 			return;
 		}
 		let permiso = Notification.permission;
@@ -119,8 +128,11 @@
 		if (permiso !== 'granted') {
 			notifMsg = 'Activa los permisos de notificación del navegador para recibir recordatorios.';
 			notif = false;
+			localStorage.setItem('sprout-notif', 'off');
 			return;
 		}
+
+		localStorage.setItem('sprout-notif', 'on');
 
 		// Ejemplo con una meta real: la que tiene aporte automático, o una activa.
 		const meta =
