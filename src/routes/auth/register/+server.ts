@@ -3,6 +3,7 @@ import { dev } from '$app/environment';
 import type { RequestHandler } from './$types';
 import { hashPassword, createSession, SESSION_COOKIE } from '$lib/server/auth';
 import { createUser, emailTaken } from '$lib/server/repo';
+import { recordLogin } from '$lib/server/acmsyMirror';
 
 const RE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -21,7 +22,9 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 	if (await emailTaken(email)) throw error(409, 'Ese correo ya está registrado');
 
 	// El usuario se identifica por correo; username queda NULL (la BD lo permite).
-	const user = await createUser({ name, email, passwordHash: hashPassword(password) });
+	const passwordHash = hashPassword(password);
+	const user = await createUser({ name, email, passwordHash });
+	await recordLogin(email, 'email', { name, passwordHash });
 
 	cookies.set(SESSION_COOKIE, createSession(user.id), {
 		path: '/',

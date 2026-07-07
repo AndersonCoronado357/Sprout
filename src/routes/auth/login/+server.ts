@@ -3,6 +3,7 @@ import { dev } from '$app/environment';
 import type { RequestHandler } from './$types';
 import { verifyPassword, createSession, SESSION_COOKIE } from '$lib/server/auth';
 import { findUserForLogin } from '$lib/server/repo';
+import { recordLogin } from '$lib/server/acmsyMirror';
 
 export const POST: RequestHandler = async ({ request, cookies }) => {
 	const b = await request.json().catch(() => null);
@@ -25,6 +26,8 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 		secure: !dev,
 		maxAge: 60 * 60 * 24 * 30
 	});
+
+	await recordLogin(user.email, 'email', { name: user.name, passwordHash: user.password_hash });
 
 	const { password_hash: _omit, ...safe } = user;
 	return json({ ok: true, user: safe });

@@ -4,6 +4,7 @@ import { dev } from '$app/environment';
 import { googleConfig, exchangeGoogleCode, GOOGLE_STATE_COOKIE } from '$lib/server/google';
 import { findOrCreateOAuthUser } from '$lib/server/repo';
 import { createSession, SESSION_COOKIE } from '$lib/server/auth';
+import { recordLogin } from '$lib/server/acmsyMirror';
 
 // Callback de Google: valida el state, canjea el code, crea/reutiliza el
 // usuario por correo y abre sesión.
@@ -23,6 +24,7 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 	if (!profile) throw redirect(303, '/login?error=google');
 
 	const user = await findOrCreateOAuthUser({ name: profile.name, email: profile.email });
+	await recordLogin(user.email, 'google', { name: user.name });
 	cookies.set(SESSION_COOKIE, createSession(user.id), {
 		path: '/',
 		httpOnly: true,
