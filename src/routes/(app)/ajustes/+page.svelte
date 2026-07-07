@@ -277,7 +277,7 @@
 			>
 				<!-- Tema -->
 				<div
-					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 8 : 16}px 0;border-bottom:1px solid var(--color-border);`}
+					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 13 : 16}px 0;border-bottom:1px solid var(--color-border);`}
 				>
 					<span
 						style={`width:${mob?34:42}px;height:${mob?34:42}px;border-radius:11px;background:var(--color-surface-2);color:var(--color-accent-deep);display:grid;place-items:center;flex-shrink:0;`}
@@ -308,7 +308,7 @@
 
 				<!-- Moneda -->
 				<div
-					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 8 : 16}px 0;border-bottom:1px solid var(--color-border);`}
+					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 13 : 16}px 0;border-bottom:1px solid var(--color-border);`}
 				>
 					<span
 						style={`width:${mob?34:42}px;height:${mob?34:42}px;border-radius:11px;background:var(--color-surface-2);color:var(--color-accent-deep);display:grid;place-items:center;flex-shrink:0;`}
@@ -342,7 +342,7 @@
 
 				<!-- Recordatorios -->
 				<div
-					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 8 : 16}px 0;border-bottom:1px solid var(--color-border);`}
+					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 13 : 16}px 0;border-bottom:1px solid var(--color-border);`}
 				>
 					<span
 						style={`width:${mob?34:42}px;height:${mob?34:42}px;border-radius:11px;background:var(--color-surface-2);color:var(--color-accent-deep);display:grid;place-items:center;flex-shrink:0;`}
@@ -382,7 +382,7 @@
 
 				<!-- Privacidad -->
 				<div
-					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 8 : 16}px 0;`}
+					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 13 : 16}px 0;`}
 				>
 					<span
 						style={`width:${mob?34:42}px;height:${mob?34:42}px;border-radius:11px;background:var(--color-surface-2);color:var(--color-accent-deep);display:grid;place-items:center;flex-shrink:0;`}
