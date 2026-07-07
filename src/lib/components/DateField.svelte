@@ -23,7 +23,6 @@
 	let cont: HTMLDivElement;
 	let calPos = $state({ top: 0, left: 0, width: 300 }); // posición fija calculada (solo desktop)
 	let goUp = $state(false);
-	let mobUI = $state(false);
 	const CAL_HEIGHT = 360;
 
 	function abrirCerrar() {
@@ -31,19 +30,14 @@
 			open = false;
 			return;
 		}
-		mobUI = true;
 		if (cont && typeof window !== 'undefined') {
 			const rect = cont.getBoundingClientRect();
 			const spaceBelow = window.innerHeight - rect.bottom;
 			const spaceAbove = rect.top;
-			// Si está forzado up, o no cabe abajo pero sí arriba → arriba
+			// Elige arriba o abajo según el espacio; position:fixed lo saca por encima de todo.
 			goUp = up || (spaceBelow < CAL_HEIGHT && spaceAbove > spaceBelow);
-			if (!mobUI) {
-				// Desktop: position:fixed para escapar overflow:hidden de padres.
-				// Mismo ancho que el input, anclado a su izquierda.
-				const top = goUp ? rect.top - CAL_HEIGHT - 8 : rect.bottom + 8;
-				calPos = { top: Math.max(12, top), left: rect.left, width: rect.width };
-			}
+			const top = goUp ? rect.top - CAL_HEIGHT - 8 : rect.bottom + 8;
+			calPos = { top: Math.max(12, top), left: rect.left, width: rect.width };
 		}
 		open = true;
 	}
@@ -148,13 +142,9 @@
 
 	{#if open}
 		<div
-			style={mobUI
-				? `position:absolute;${goUp ? 'bottom' : 'top'}:calc(100% + 8px);left:0;right:0;z-index:9999;` +
-					`background:var(--color-surface);border-radius:18px;padding:14px;` +
-					`box-shadow:0 16px 40px -8px rgba(0,0,0,0.5);`
-				: `position:fixed;top:${calPos.top}px;left:${calPos.left}px;z-index:9999;` +
-					`width:${calPos.width}px;max-width:92vw;background:var(--color-surface);border-radius:18px;padding:14px;` +
-					`box-shadow:0 16px 40px -8px rgba(0,0,0,0.5);`}
+			style={`position:fixed;top:${calPos.top}px;left:${calPos.left}px;z-index:9999;` +
+				`width:${calPos.width}px;max-width:calc(100vw - 24px);background:var(--color-surface);border-radius:18px;padding:14px;` +
+				`box-shadow:0 16px 40px -8px rgba(0,0,0,0.5);`}
 		>
 			<div
 				style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;"

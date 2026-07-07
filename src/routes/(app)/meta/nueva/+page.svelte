@@ -23,14 +23,20 @@
 	const ICONS: GoalIcon[] = [
 		'target',
 		'wallet',
+		'coins',
+		'chart',
+		'home',
+		'calendar',
+		'clock',
+		'lock',
 		'leaf',
+		'sprout',
 		'flame',
 		'repeat',
 		'note',
-		'coins',
-		'calendar',
-		'sprout',
-		'home'
+		'gear',
+		'camera',
+		'sun'
 	];
 
 	// Modo edición: ?edit=<id> precarga una meta existente.
@@ -189,22 +195,21 @@
 									>
 										Ícono
 									</div>
-									<div style={`display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:${mob ? 8 : 10}px;`}>
+									<div style={`display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:${mob ? 7 : 8}px;`}>
 										{#each ICONS as ic}
 											{@const active = icon === ic}
-											{@const sz = mob ? 40 : 50}
 											<button
 												onclick={() => (icon = ic)}
 												style={`cursor:pointer;border:none;background:none;padding:0;display:grid;place-items:center;width:100%;`}
 												aria-label={ic}
 											>
 												<span
-													style={`width:${sz}px;height:${sz}px;border-radius:${mob ? 12 : 15}px;display:grid;place-items:center;` +
+													style={`width:100%;aspect-ratio:1;border-radius:11px;display:grid;place-items:center;` +
 														`color:${active ? hue : 'var(--color-muted)'};` +
 														`background:${active ? hueTint(hue, 0.14) : 'var(--color-surface-2)'};` +
 														`border:1.5px solid ${active ? hueTint(hue, 0.3) : 'transparent'};transition:all .15s;`}
 												>
-													<Icon name={ic} size={mob ? 20 : 23} />
+													<Icon name={ic} size={mob ? 18 : 20} />
 												</span>
 											</button>
 										{/each}
@@ -226,9 +231,10 @@
 								</Field>
 								{#if Number(target) >= 0}
 									<div
-										style={`background:var(--color-accent-soft);border-radius:18px;padding:${mob ? '18px 18px' : '24px 26px'};${mob ? 'flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;' : ''}`}
+										style={`background:var(--color-accent-soft);border-radius:18px;padding:${mob ? '18px 18px' : '24px 26px'};${mob ? 'flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;position:relative;overflow:hidden;' : ''}`}
 									>
-										<div
+										{#if mob}<svg viewBox="0 0 200 200" style="position:absolute;right:-16%;bottom:-20%;width:64%;opacity:0.13;color:var(--color-accent-deep);pointer-events:none;" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="100" cy="100" r="92" stroke-width="2.5" /><circle cx="100" cy="100" r="64" stroke-width="2.5" /><circle cx="100" cy="100" r="36" stroke-width="2.5" /></svg>{/if}
+											<div
 											style={`font-family:var(--font-body);font-weight:700;font-size:12.5px;color:var(--color-accent-deep);
 											margin-bottom:${mob ? 6 : 10}px;display:flex;align-items:center;gap:7px;`}
 										>
@@ -263,19 +269,15 @@
 										</div>
 									</div>
 								{/if}
-																{#if !mob}
-										<div style="flex:1;min-height:0;display:flex;align-items:flex-end;justify-content:center;padding-top:8px;">
-											<StemPlant pct={72} height={200} />
-										</div>
-									{/if}
 </div>
 						{:else}
 							<div style={`display:flex;flex-direction:column;gap:${mob ? 12 : 18}px;height:100%;`}>
 								<GoalCard goal={preview} {cur} onOpen={() => {}} />
 								<div
-									style={`background:var(--color-surface-2);border-radius:18px;padding:${mob ? '14px 16px' : '22px'};display:grid;grid-template-columns:1fr 1fr;gap:${mob ? '10px 16px' : '16px'};${mob ? 'flex:1;align-content:center;' : ''}`}
+									style={`background:var(--color-surface-2);border-radius:18px;padding:${mob ? '14px 16px' : '22px'};display:grid;grid-template-columns:1fr 1fr;gap:${mob ? '10px 16px' : '16px'};${mob ? 'flex:1;align-content:center;position:relative;overflow:hidden;' : ''}`}
 								>
-									{#each [['Objetivo', fmtMoney(Number(target), cur)], ['Fecha', fmtDate(date)], ['Categoría', CATS[cat].label], ['Faltan', `${daysBetween(TODAY, date)} días`]] as [l, v]}
+									{#if mob}<svg viewBox="0 0 200 200" style="position:absolute;right:-16%;bottom:-20%;width:64%;opacity:0.1;color:var(--color-accent);pointer-events:none;" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="100" cy="100" r="92" stroke-width="2.5" /><circle cx="100" cy="100" r="64" stroke-width="2.5" /><circle cx="100" cy="100" r="36" stroke-width="2.5" /></svg>{/if}
+											{#each [['Objetivo', fmtMoney(Number(target), cur)], ['Fecha', fmtDate(date)], ['Categoría', CATS[cat].label], ['Faltan', `${daysBetween(TODAY, date)} días`]] as [l, v]}
 										<div>
 											<div
 												style="font-family:var(--font-body);font-weight:600;font-size:12.5px;color:var(--color-muted);"
@@ -290,11 +292,6 @@
 										</div>
 									{/each}
 								</div>
-																{#if !mob}
-										<div style="flex:1;min-height:0;display:flex;align-items:flex-end;justify-content:center;padding-top:8px;">
-											<StemPlant pct={100} height={200} />
-										</div>
-									{/if}
 </div>
 						{/if}
 					</div>

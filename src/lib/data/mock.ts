@@ -13,7 +13,13 @@ export type GoalIcon =
 	| 'coins'
 	| 'calendar'
 	| 'sprout'
-	| 'home';
+	| 'home'
+	| 'chart'
+	| 'clock'
+	| 'camera'
+	| 'sun'
+	| 'gear'
+	| 'lock';
 export type Goal = {
 	id: string;
 	name: string;
