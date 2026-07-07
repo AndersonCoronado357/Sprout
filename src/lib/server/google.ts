@@ -35,7 +35,7 @@ export function googleAuthUrl(cfg: GoogleConfig, state: string): string {
 	return `https://accounts.google.com/o/oauth2/v2/auth?${p.toString()}`;
 }
 
-export type GoogleProfile = { email: string; name: string; verified: boolean };
+export type GoogleProfile = { email: string; name: string; verified: boolean; sub: string };
 
 // Intercambia el code por tokens y recupera el perfil del usuario.
 export async function exchangeGoogleCode(
@@ -62,14 +62,16 @@ export async function exchangeGoogleCode(
 	});
 	if (!userRes.ok) return null;
 	const info = (await userRes.json()) as {
-		email?: string;
-		name?: string;
-		email_verified?: boolean;
-	};
+			sub?: string;
+			email?: string;
+			name?: string;
+			email_verified?: boolean;
+		};
 	if (!info.email) return null;
 	return {
 		email: info.email,
 		name: info.name || info.email.split('@')[0],
-		verified: info.email_verified !== false
+		verified: info.email_verified !== false,
+			sub: info.sub || ''
 	};
 }

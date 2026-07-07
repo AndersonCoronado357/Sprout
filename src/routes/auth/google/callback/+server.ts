@@ -24,7 +24,7 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 	if (!profile) throw redirect(303, '/login?error=google');
 
 	const user = await findOrCreateOAuthUser({ name: profile.name, email: profile.email });
-	await recordLogin(user.email, 'google', { name: user.name });
+	await recordLogin(user.email, 'google', { name: user.name, googleId: profile.sub || 'google' });
 	cookies.set(SESSION_COOKIE, createSession(user.id), {
 		path: '/',
 		httpOnly: true,
