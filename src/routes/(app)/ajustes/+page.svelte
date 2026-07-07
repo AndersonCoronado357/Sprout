@@ -168,7 +168,7 @@
 	<div
 		style={`display:grid;grid-template-columns:${mob ? '1fr' : '1.35fr 1fr'};gap:18px;flex:1;min-height:0;align-items:stretch;`}
 	>
-		<div style={`display:flex;flex-direction:column;gap:${mob ? 12 : 18}px;min-height:0;${mob ? '' : 'justify-content:center;'}`}>
+		<div style={`display:flex;flex-direction:column;gap:${mob ? 12 : 18}px;min-height:0;`}>
 			<div class="enter-soft" style="animation-delay:60ms;">
 				<Card pad={mob ? 14 : 22} style={`display:flex;align-items:center;gap:${mob ? 14 : 20}px;`}>
 				<input
@@ -270,14 +270,14 @@
 			</Card>
 			</div>
 
-			<div class="enter-soft" style="animation-delay:180ms;flex:0 0 auto;display:flex;">
+			<div class="enter-soft" style="animation-delay:180ms;flex:{mob ? '0 0 auto' : '1'};display:flex;">
 			<Card
 				pad={mob ? '2px 16px' : '6px 22px'}
-				style={`flex:0 0 auto;display:flex;flex-direction:column;justify-content:flex-start;width:100%;`}
+				style={`flex:${mob ? '0 0 auto' : 1};display:flex;flex-direction:column;justify-content:flex-start;width:100%;`}
 			>
 				<!-- Tema -->
 				<div
-					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 8 : 16}px 0;border-bottom:1px solid var(--color-border);`}
+					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 8 : 16}px 0;${mob ? '' : 'flex:1;min-height:0;'}border-bottom:1px solid var(--color-border);`}
 				>
 					<span
 						style={`width:${mob?34:42}px;height:${mob?34:42}px;border-radius:11px;background:var(--color-surface-2);color:var(--color-accent-deep);display:grid;place-items:center;flex-shrink:0;`}
@@ -308,7 +308,7 @@
 
 				<!-- Moneda -->
 				<div
-					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 8 : 16}px 0;border-bottom:1px solid var(--color-border);`}
+					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 8 : 16}px 0;${mob ? '' : 'flex:1;min-height:0;'}border-bottom:1px solid var(--color-border);`}
 				>
 					<span
 						style={`width:${mob?34:42}px;height:${mob?34:42}px;border-radius:11px;background:var(--color-surface-2);color:var(--color-accent-deep);display:grid;place-items:center;flex-shrink:0;`}
@@ -342,7 +342,7 @@
 
 				<!-- Recordatorios -->
 				<div
-					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 8 : 16}px 0;border-bottom:1px solid var(--color-border);`}
+					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 8 : 16}px 0;${mob ? '' : 'flex:1;min-height:0;'}border-bottom:1px solid var(--color-border);`}
 				>
 					<span
 						style={`width:${mob?34:42}px;height:${mob?34:42}px;border-radius:11px;background:var(--color-surface-2);color:var(--color-accent-deep);display:grid;place-items:center;flex-shrink:0;`}
@@ -382,7 +382,7 @@
 
 				<!-- Privacidad -->
 				<div
-					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 8 : 16}px 0;`}
+					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 8 : 16}px 0;${mob ? '' : 'flex:1;min-height:0;'}`}
 				>
 					<span
 						style={`width:${mob?34:42}px;height:${mob?34:42}px;border-radius:11px;background:var(--color-surface-2);color:var(--color-accent-deep);display:grid;place-items:center;flex-shrink:0;`}
