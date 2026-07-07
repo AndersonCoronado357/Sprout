@@ -2,28 +2,6 @@
 <html lang="es" data-theme="dark">
 	<head>
 		<meta charset="utf-8" />
-		<script>
-			// Elimina cualquier service worker viejo y su caché para que nunca se
-			// sirva una versión anterior tras un despliegue.
-			(function () {
-				try {
-					if ('serviceWorker' in navigator) {
-						navigator.serviceWorker.getRegistrations().then(function (rs) {
-							rs.forEach(function (r) {
-								r.unregister();
-							});
-						});
-					}
-					if (window.caches && caches.keys) {
-						caches.keys().then(function (ks) {
-							ks.forEach(function (k) {
-								caches.delete(k);
-							});
-						});
-					}
-				} catch (e) {}
-			})();
-		</script>
 		<meta
 			name="viewport"
 			content="width=device-width, initial-scale=1, viewport-fit=cover"

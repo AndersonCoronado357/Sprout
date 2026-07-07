@@ -130,14 +130,30 @@
 			: fmtMoney(50000, appState.cur);
 		const nombre = meta?.name || 'tu meta';
 
+		const opts: NotificationOptions = {
+			body: `Hoy toca tu aporte a "${nombre}". Aparta ${monto} para seguir creciendo.`,
+			icon: '/icon-192.png',
+			badge: '/icon-192.png',
+			tag: 'sprout-demo'
+		};
 		try {
-			const n = new Notification('Sprout · Recordatorio', {
-				body: `Hoy toca tu aporte a "${nombre}". Aparta ${monto} para seguir creciendo.`,
-				icon: '/icon-192.png',
-				badge: '/icon-192.png',
-				tag: 'sprout-demo'
-			});
-			setTimeout(() => n.close(), 8000);
+			let mostrada = false;
+			// En móvil (Chrome de Android) new Notification() no funciona: hay que
+			// mostrarla desde el service worker con registration.showNotification().
+			if ('serviceWorker' in navigator) {
+				const reg = await Promise.race([
+					navigator.serviceWorker.ready,
+					new Promise<null>((res) => setTimeout(() => res(null), 3000))
+				]);
+				if (reg && 'showNotification' in reg) {
+					await reg.showNotification('Sprout · Recordatorio', opts);
+					mostrada = true;
+				}
+			}
+			if (!mostrada) {
+				const n = new Notification('Sprout · Recordatorio', opts);
+				setTimeout(() => n.close(), 8000);
+			}
 			notifMsg = 'Así se verá cada recordatorio de aporte.';
 		} catch {
 			notifMsg = 'No se pudo mostrar la notificación de ejemplo.';
