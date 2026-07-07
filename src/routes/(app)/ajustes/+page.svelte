@@ -168,7 +168,7 @@
 	<div
 		style={`display:grid;grid-template-columns:${mob ? '1fr' : '1.35fr 1fr'};gap:18px;flex:1;min-height:0;align-items:stretch;`}
 	>
-		<div style={`display:flex;flex-direction:column;gap:${mob ? 12 : 18}px;min-height:0;`}>
+		<div style={`display:flex;flex-direction:column;gap:${mob ? 12 : 18}px;min-height:0;${mob ? '' : 'justify-content:center;'}`}>
 			<div class="enter-soft" style="animation-delay:60ms;">
 				<Card pad={mob ? 14 : 22} style={`display:flex;align-items:center;gap:${mob ? 14 : 20}px;`}>
 				<input
@@ -270,10 +270,10 @@
 			</Card>
 			</div>
 
-			<div class="enter-soft" style="animation-delay:180ms;flex:{mob ? '0 0 auto' : '1'};display:flex;">
+			<div class="enter-soft" style="animation-delay:180ms;flex:0 0 auto;display:flex;">
 			<Card
 				pad={mob ? '2px 16px' : '6px 22px'}
-				style={`flex:${mob ? '0 0 auto' : 1};display:flex;flex-direction:column;justify-content:${mob ? 'flex-start' : 'center'};width:100%;`}
+				style={`flex:0 0 auto;display:flex;flex-direction:column;justify-content:flex-start;width:100%;`}
 			>
 				<!-- Tema -->
 				<div

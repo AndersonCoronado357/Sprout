@@ -75,7 +75,7 @@
 	</TopBar>
 
 	<!-- HERO + FILTROS: en móvil quedan pegados arriba juntos; solo la grilla scrollea -->
-	<div style={mob ? 'position:sticky;top:0;z-index:5;background:var(--color-surface-sink);display:flex;flex-direction:column;gap:14px;padding-bottom:12px;' : ''}>
+	<div style={mob ? 'position:sticky;top:0;z-index:5;background:var(--color-surface-sink);display:flex;flex-direction:column;gap:14px;padding-bottom:12px;' : 'display:flex;flex-direction:column;gap:18px;'}>
 	<div
 		class="enter-rise"
 		style={`border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:${mob ? '14px 0 0' : '22px 0'};` +
@@ -182,7 +182,7 @@
 		</div>
 	{:else}
 		<div
-			style={`display:grid;gap:16px;align-content:start;` +
+			style={`display:grid;gap:16px;align-content:start;padding-bottom:${mob ? 20 : 8}px;` +
 				`grid-template-columns:${mob ? '1fr' : 'repeat(auto-fill, minmax(330px, 1fr))'};`}
 		>
 			{#each list as g, i (g.id)}
