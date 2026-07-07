@@ -21,7 +21,7 @@
 
 	let USER = $derived(appState.user);
 
-	let mob = $state(false);
+	let mob = $state(typeof window !== 'undefined' && window.matchMedia('(max-width: 859px)').matches);
 	function calcMob() {
 		mob = typeof window !== 'undefined' && window.matchMedia('(max-width: 859px)').matches;
 	}
@@ -52,6 +52,7 @@
 	<!-- Sidebar (desktop) -->
 	{#if !mob}
 		<aside
+			data-sidebar
 			style="width:clamp(214px, 19vw, 260px);flex-shrink:0;background:var(--color-surface);
 			display:flex;flex-direction:column;padding:clamp(16px, 1.6vw, 26px) clamp(12px, 1.2vw, 18px) 20px;"
 		>

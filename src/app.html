@@ -6,6 +6,21 @@
 			name="viewport"
 			content="width=device-width, initial-scale=1, viewport-fit=cover"
 		/>
+		<script>
+			// Marca si es móvil ANTES de pintar, para no mostrar el sidebar de
+			// escritorio un instante en celular. Va DESPUÉS del meta viewport para
+			// que matchMedia evalúe contra el ancho real del dispositivo.
+			try {
+				document.documentElement.dataset.mob = window.matchMedia('(max-width: 859px)').matches
+					? '1'
+					: '0';
+			} catch (e) {}
+		</script>
+		<style>
+			html[data-mob='1'] aside[data-sidebar] {
+				display: none !important;
+			}
+		</style>
 		<meta name="theme-color" content="#0D0E0F" />
 		<meta
 			name="description"

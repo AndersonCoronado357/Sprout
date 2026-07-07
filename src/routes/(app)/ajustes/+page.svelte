@@ -13,7 +13,7 @@
 	import { appState } from '$lib/state.svelte';
 	import { fmtMoney, goalSaved, goalPct, CURRENCIES, type CurrencyCode } from '$lib/format';
 
-	let mob = $state(false);
+	let mob = $state(typeof window !== 'undefined' && window.matchMedia('(max-width: 859px)').matches);
 	function calcMob() {
 		mob = typeof window !== 'undefined' && window.matchMedia('(max-width: 859px)').matches;
 	}

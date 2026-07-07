@@ -13,7 +13,7 @@
 	let USER = $derived(appState.user);
 	let GOALS = $derived(appState.goals);
 
-	let mob = $state(false);
+	let mob = $state(typeof window !== 'undefined' && window.matchMedia('(max-width: 859px)').matches);
 	// En móvil se muestra una vista a la vez (Meses / Categoría) para que quepa sin scroll.
 	let vista = $state<'meses' | 'cat'>('meses');
 	function calcMob() {
