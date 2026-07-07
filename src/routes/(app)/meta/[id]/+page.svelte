@@ -217,6 +217,13 @@
 		style={`display:flex;flex-direction:column;gap:18px;width:100%;` +
 			(mob ? '' : 'height:100%;min-height:0;overflow:hidden;')}
 	>
+		<div
+			style={mob
+				? 'position:sticky;top:0;z-index:10;background:var(--color-surface-sink);' +
+					'margin:calc(-1 * clamp(16px, 5vw, 26px)) calc(-1 * clamp(16px, 5vw, 26px)) 0;' +
+					'padding:clamp(16px, 5vw, 26px) clamp(16px, 5vw, 26px) 12px;'
+				: 'display:contents;'}
+		>
 		<TopBar onBack={() => goto('/inicio')} title={goal.name}>
 			{#snippet subSnippet()}
 				<span style="display:inline-flex;align-items:center;gap:6px;white-space:nowrap;">
@@ -238,6 +245,7 @@
 				</Btn>
 			{/snippet}
 		</TopBar>
+		</div>
 
 		<!-- BANNER DE ESTADO (pausada / cancelada) -->
 		{#if archivada}
