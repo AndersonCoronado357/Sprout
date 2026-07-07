@@ -23,7 +23,7 @@
 
 	let mob = $state(false);
 	function calcMob() {
-		mob = typeof window !== 'undefined' && window.innerWidth < 860;
+		mob = typeof window !== 'undefined' && window.matchMedia('(max-width: 859px)').matches;
 	}
 	onMount(() => {
 		calcMob();
