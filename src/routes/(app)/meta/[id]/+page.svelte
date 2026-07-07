@@ -611,7 +611,7 @@
 					<button
 						onclick={() => goto(`/meta/${goal.id}/recurrente`)}
 						style="display:flex;align-items:center;gap:12px;width:100%;text-align:left;cursor:pointer;
-						background:var(--color-surface-2);border:1px dashed var(--color-border-strong);border-radius:20px;padding:15px 20px;
+						background:var(--color-surface-2);border:1px solid transparent;border-radius:20px;padding:15px 20px;
 						flex-shrink:0;"
 					>
 						<Icon name="repeat" size={20} color="var(--color-accent)" />
