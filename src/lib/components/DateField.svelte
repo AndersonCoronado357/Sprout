@@ -31,7 +31,7 @@
 			open = false;
 			return;
 		}
-		mobUI = typeof window !== 'undefined' && window.innerWidth < 860;
+		mobUI = true;
 		if (cont && typeof window !== 'undefined') {
 			const rect = cont.getBoundingClientRect();
 			const spaceBelow = window.innerHeight - rect.bottom;

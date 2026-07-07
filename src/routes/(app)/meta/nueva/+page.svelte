@@ -148,14 +148,14 @@
 				{/each}
 			</div>
 
-			<div style={mob ? 'flex:1;min-height:0;overflow-y:auto;position:relative;' : 'flex:1;position:relative;overflow:hidden;'}>
+			<div style={mob ? 'flex:1;min-height:0;overflow-y:auto;position:relative;' : 'flex:1;position:relative;'}>
 				{#key step}
 					<div
-						style="position:relative;"
+						style={mob ? 'position:relative;' : 'position:relative;height:100%;'}
 						in:fly={{ x: 24 * dir, duration: 280, easing: cubicOut, delay: 60 }}
 					>
 						{#if step === 0}
-							<div style={`display:flex;flex-direction:column;gap:${mob ? 10 : 22}px;`}>
+							<div style={`display:flex;flex-direction:column;gap:${mob ? 10 : 22}px;${mob ? '' : 'height:100%;'}`}>
 								<Field label="Nombre de la meta">
 									<TextInput
 										bind:value={name}
@@ -188,13 +188,13 @@
 									>
 										Ícono
 									</div>
-									<div style={`display:flex;gap:${mob ? 8 : 10}px;flex-wrap:wrap;`}>
+									<div style={`display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:${mob ? 8 : 10}px;`}>
 										{#each ICONS as ic}
 											{@const active = icon === ic}
 											{@const sz = mob ? 40 : 50}
 											<button
 												onclick={() => (icon = ic)}
-												style={`cursor:pointer;border:none;background:none;padding:0;`}
+												style={`cursor:pointer;border:none;background:none;padding:0;display:grid;place-items:center;width:100%;`}
 												aria-label={ic}
 											>
 												<span
@@ -209,9 +209,21 @@
 										{/each}
 									</div>
 								</div>
-							</div>
+												{#if !mob}
+						<div class="matica-crece" style="flex:1;min-height:0;display:flex;align-items:flex-end;justify-content:center;padding-top:14px;">
+							<svg width="150" height="164" viewBox="0 0 118 128" fill="none" style="max-height:100%;color:var(--color-accent);">
+								<path d="M59 128 V44" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" />
+								<path d="M59 86c0-20-14-33-34-33 0 20 14 33 34 33Z" fill="currentColor" opacity="0.92" />
+								<path d="M59 68c0-17 12-29 31-29 0 17-13 29-31 29Z" fill="currentColor" opacity="0.72" />
+								<path d="M59 106c0-15 11-25 27-25 0 15-12 25-27 25Z" fill="currentColor" opacity="0.5" />
+								<path d="M59 50c0-13-9-22-23-22 0 13 10 22 23 22Z" fill="currentColor" opacity="0.82" />
+								<path d="M59 46c0-12 8-20 21-20 0 12-9 20-21 20Z" fill="currentColor" />
+							</svg>
+						</div>
+					{/if}
+</div>
 						{:else if step === 1}
-							<div style={`display:flex;flex-direction:column;gap:${mob ? 12 : 22}px;`}>
+							<div style={`display:flex;flex-direction:column;gap:${mob ? 12 : 22}px;${mob ? '' : 'height:100%;'}`}>
 								<Field label="Monto objetivo" hint="¿Cuánto necesitas reunir?">
 									<MoneyInput bind:value={target} {cur} big={!mob} autofocus={!mob} />
 								</Field>
@@ -220,7 +232,7 @@
 								</Field>
 								{#if Number(target) >= 0}
 									<div
-										style={`background:var(--color-accent-soft);border-radius:18px;padding:${mob ? '10px 16px' : '18px 20px'};`}
+										style={`background:var(--color-accent-soft);border-radius:18px;padding:${mob ? '10px 16px' : '24px 26px'};${mob ? '' : 'flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px;'}`}
 									>
 										<div
 											style={`font-family:var(--font-body);font-weight:700;font-size:12.5px;color:var(--color-accent-deep);
@@ -232,7 +244,7 @@
 										<div style={`display:flex;gap:${mob ? 16 : 22}px;`}>
 											<div>
 												<span
-													style={`font-family:var(--font-disp);font-weight:700;font-size:${mob ? 22 : 28}px;color:var(--color-accent-deep);`}
+													style={`font-family:var(--font-disp);font-weight:700;font-size:${mob ? 22 : 40}px;color:var(--color-accent-deep);`}
 												>
 													{fmtMoney(sug.perWeek, cur)}
 												</span>
@@ -244,7 +256,7 @@
 											</div>
 											<div>
 												<span
-													style={`font-family:var(--font-disp);font-weight:700;font-size:${mob ? 22 : 28}px;color:var(--color-accent-deep);`}
+													style={`font-family:var(--font-disp);font-weight:700;font-size:${mob ? 22 : 40}px;color:var(--color-accent-deep);`}
 												>
 													{fmtMoney(sug.perMonth, cur)}
 												</span>
@@ -259,10 +271,10 @@
 								{/if}
 							</div>
 						{:else}
-							<div style={`display:flex;flex-direction:column;gap:${mob ? 12 : 18}px;`}>
+							<div style={`display:flex;flex-direction:column;gap:${mob ? 12 : 18}px;${mob ? '' : 'height:100%;'}`}>
 								<GoalCard goal={preview} {cur} onOpen={() => {}} />
 								<div
-									style={`background:var(--color-surface-2);border-radius:18px;padding:${mob ? '14px 16px' : '20px'};display:grid;grid-template-columns:1fr 1fr;gap:${mob ? '10px 16px' : '16px'};`}
+									style={`background:var(--color-surface-2);border-radius:18px;padding:${mob ? '14px 16px' : '22px'};display:grid;grid-template-columns:1fr 1fr;gap:${mob ? '10px 16px' : '16px'};${mob ? '' : 'flex:1;align-content:center;'}`}
 								>
 									{#each [['Objetivo', fmtMoney(Number(target), cur)], ['Fecha', fmtDate(date)], ['Categoría', CATS[cat].label], ['Faltan', `${daysBetween(TODAY, date)} días`]] as [l, v]}
 										<div>

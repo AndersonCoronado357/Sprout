@@ -231,6 +231,7 @@
 					size="sm"
 					variant="ghost"
 					icon="edit"
+					style={mob ? 'width:40px;height:40px;min-height:40px;padding:0;' : ''}
 					onclick={() => goto(`/meta/nueva?edit=${goal.id}`)}
 				>
 					{#if !mob}Editar{/if}

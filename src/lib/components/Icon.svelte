@@ -66,8 +66,8 @@
 	{:else if name === 'arrowUp'}
 		<path d="M12 19V5M6 11l6-6 6 6" />
 	{:else if name === 'edit'}
-		<path d="M14 4.5 19.5 10 8 21.5H3v-5z" />
-		<path d="M12.5 6 18 11.5" />
+		<path d="M14.75 3.5 20.25 9 8.75 20.5H3.75v-5z" />
+		<path d="M13.25 5 18.75 10.5" />
 	{:else if name === 'trash'}
 		<path d="M4 7h16M9 7V4.5h6V7M6 7l1 13h10l1-13" />
 	{:else if name === 'repeat'}
