@@ -6,7 +6,7 @@
 
 <label style="display:block;">
 	<div
-		style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;"
+		style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;"
 	>
 		<span
 			style="font-family:var(--font-body);font-weight:700;font-size:13.5px;color:var(--color-ink);"

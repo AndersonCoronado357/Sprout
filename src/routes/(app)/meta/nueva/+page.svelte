@@ -58,7 +58,7 @@
 
 	let mob = $state(false);
 	function calcMob() {
-		mob = typeof window !== 'undefined' && window.innerWidth < 860;
+		mob = typeof window !== 'undefined' && window.matchMedia('(max-width: 859px)').matches;
 	}
 	onMount(() => {
 		calcMob();
@@ -155,22 +155,22 @@
 						in:fly={{ x: 24 * dir, duration: 280, easing: cubicOut, delay: 60 }}
 					>
 						{#if step === 0}
-							<div style="display:flex;flex-direction:column;gap:22px;">
+							<div style={`display:flex;flex-direction:column;gap:${mob ? 10 : 22}px;`}>
 								<Field label="Nombre de la meta">
 									<TextInput
 										bind:value={name}
 										placeholder="Ej. Viaje a San Andrés"
-										big
+										big={!mob}
 										autofocus={!mob}
 									/>
 								</Field>
 								<div>
 									<div
-										style="font-family:var(--font-body);font-weight:700;font-size:13.5px;color:var(--color-ink);margin-bottom:10px;"
+										style={`font-family:var(--font-body);font-weight:700;font-size:13.5px;color:var(--color-ink);margin-bottom:${mob ? 4 : 10}px;`}
 									>
 										Categoría
 									</div>
-									<div style="display:flex;gap:9px;flex-wrap:wrap;">
+									<div style={`display:flex;gap:${mob ? 7 : 9}px;flex-wrap:wrap;`}>
 										{#each Object.entries(CATS) as [k, v]}
 											<Chip
 												active={cat === k}
@@ -184,25 +184,26 @@
 								</div>
 								<div>
 									<div
-										style="font-family:var(--font-body);font-weight:700;font-size:13.5px;color:var(--color-ink);margin-bottom:10px;"
+										style={`font-family:var(--font-body);font-weight:700;font-size:13.5px;color:var(--color-ink);margin-bottom:${mob ? 4 : 10}px;`}
 									>
 										Ícono
 									</div>
-									<div style="display:flex;gap:10px;flex-wrap:wrap;">
+									<div style={`display:flex;gap:${mob ? 8 : 10}px;flex-wrap:wrap;`}>
 										{#each ICONS as ic}
 											{@const active = icon === ic}
+											{@const sz = mob ? 40 : 50}
 											<button
 												onclick={() => (icon = ic)}
 												style={`cursor:pointer;border:none;background:none;padding:0;`}
 												aria-label={ic}
 											>
 												<span
-													style={`width:50px;height:50px;border-radius:15px;display:grid;place-items:center;` +
+													style={`width:${sz}px;height:${sz}px;border-radius:${mob ? 12 : 15}px;display:grid;place-items:center;` +
 														`color:${active ? hue : 'var(--color-muted)'};` +
 														`background:${active ? hueTint(hue, 0.14) : 'var(--color-surface-2)'};` +
-														`border:1.5px solid ${active ? hueTint(hue, 0.3) : 'var(--color-border)'};transition:all .15s;`}
+														`border:1.5px solid ${active ? hueTint(hue, 0.3) : 'transparent'};transition:all .15s;`}
 												>
-													<Icon name={ic} size={23} />
+													<Icon name={ic} size={mob ? 20 : 23} />
 												</span>
 											</button>
 										{/each}
@@ -258,10 +259,10 @@
 								{/if}
 							</div>
 						{:else}
-							<div style="display:flex;flex-direction:column;gap:18px;">
+							<div style={`display:flex;flex-direction:column;gap:${mob ? 12 : 18}px;`}>
 								<GoalCard goal={preview} {cur} onOpen={() => {}} />
 								<div
-									style="background:var(--color-surface-2);border-radius:18px;padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px;"
+									style={`background:var(--color-surface-2);border-radius:18px;padding:${mob ? '14px 16px' : '20px'};display:grid;grid-template-columns:1fr 1fr;gap:${mob ? '10px 16px' : '16px'};`}
 								>
 									{#each [['Objetivo', fmtMoney(Number(target), cur)], ['Fecha', fmtDate(date)], ['Categoría', CATS[cat].label], ['Faltan', `${daysBetween(TODAY, date)} días`]] as [l, v]}
 										<div>
@@ -271,7 +272,7 @@
 												{l}
 											</div>
 											<div
-												style="font-family:var(--font-disp);font-weight:600;font-size:17px;color:var(--color-ink);margin-top:2px;"
+												style={`font-family:var(--font-disp);font-weight:600;font-size:${mob ? 15 : 17}px;color:var(--color-ink);margin-top:2px;`}
 											>
 												{v}
 											</div>

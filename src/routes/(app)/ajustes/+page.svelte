@@ -15,7 +15,7 @@
 
 	let mob = $state(false);
 	function calcMob() {
-		mob = typeof window !== 'undefined' && window.innerWidth < 860;
+		mob = typeof window !== 'undefined' && window.matchMedia('(max-width: 859px)').matches;
 	}
 	onMount(() => {
 		calcMob();
@@ -168,9 +168,9 @@
 	<div
 		style={`display:grid;grid-template-columns:${mob ? '1fr' : '1.35fr 1fr'};gap:18px;flex:1;min-height:0;align-items:stretch;`}
 	>
-		<div style="display:flex;flex-direction:column;gap:18px;min-height:0;">
+		<div style={`display:flex;flex-direction:column;gap:${mob ? 12 : 18}px;min-height:0;`}>
 			<div class="enter-soft" style="animation-delay:60ms;">
-				<Card style="display:flex;align-items:center;gap:20px;">
+				<Card pad={mob ? 14 : 22} style={`display:flex;align-items:center;gap:${mob ? 14 : 20}px;`}>
 				<input
 					bind:this={fileInput}
 					type="file"
@@ -186,7 +186,7 @@
 					class="avatar-btn"
 					style={`position:relative;flex-shrink:0;border:none;background:none;padding:0;` +
 						`cursor:${subiendoFoto ? 'wait' : 'pointer'};border-radius:999px;` +
-						`width:${mob ? 92 : 140}px;height:${mob ? 92 : 140}px;`}
+						`width:${mob ? 74 : 140}px;height:${mob ? 74 : 140}px;`}
 				>
 					<span
 						class="avatar-foto"
@@ -272,16 +272,15 @@
 
 			<div class="enter-soft" style="animation-delay:180ms;flex:{mob ? '0 0 auto' : '1'};display:flex;">
 			<Card
-				pad="6px 22px"
+				pad={mob ? '2px 16px' : '6px 22px'}
 				style={`flex:${mob ? '0 0 auto' : 1};display:flex;flex-direction:column;justify-content:${mob ? 'flex-start' : 'center'};width:100%;`}
 			>
 				<!-- Tema -->
 				<div
-					style="display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--color-border);"
+					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 8 : 16}px 0;border-bottom:1px solid var(--color-border);`}
 				>
 					<span
-						style="width:42px;height:42px;border-radius:12px;background:var(--color-surface-2);
-						color:var(--color-accent-deep);display:grid;place-items:center;"
+						style={`width:${mob?34:42}px;height:${mob?34:42}px;border-radius:11px;background:var(--color-surface-2);color:var(--color-accent-deep);display:grid;place-items:center;flex-shrink:0;`}
 					>
 						<Icon name={appState.theme === 'dark' ? 'moon' : 'sun'} size={20} />
 					</span>
@@ -292,7 +291,7 @@
 							Tema
 						</div>
 						<div
-							style="font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--color-muted);margin-top:2px;"
+							style={`font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--color-muted);margin-top:2px;${mob ? "display:none;" : ""}`}
 						>
 							Claro u oscuro
 						</div>
@@ -309,11 +308,10 @@
 
 				<!-- Moneda -->
 				<div
-					style="display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--color-border);"
+					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 8 : 16}px 0;border-bottom:1px solid var(--color-border);`}
 				>
 					<span
-						style="width:42px;height:42px;border-radius:12px;background:var(--color-surface-2);
-						color:var(--color-accent-deep);display:grid;place-items:center;"
+						style={`width:${mob?34:42}px;height:${mob?34:42}px;border-radius:11px;background:var(--color-surface-2);color:var(--color-accent-deep);display:grid;place-items:center;flex-shrink:0;`}
 					>
 						<Icon name="coins" size={20} />
 					</span>
@@ -324,7 +322,7 @@
 							Moneda
 						</div>
 						<div
-							style="font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--color-muted);margin-top:2px;"
+							style={`font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--color-muted);margin-top:2px;${mob ? "display:none;" : ""}`}
 						>
 							Para mostrar tus montos
 						</div>
@@ -343,11 +341,10 @@
 
 				<!-- Recordatorios -->
 				<div
-					style="display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--color-border);"
+					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 8 : 16}px 0;border-bottom:1px solid var(--color-border);`}
 				>
 					<span
-						style="width:42px;height:42px;border-radius:12px;background:var(--color-surface-2);
-						color:var(--color-accent-deep);display:grid;place-items:center;"
+						style={`width:${mob?34:42}px;height:${mob?34:42}px;border-radius:11px;background:var(--color-surface-2);color:var(--color-accent-deep);display:grid;place-items:center;flex-shrink:0;`}
 					>
 						<Icon name="bell" size={20} />
 					</span>
@@ -358,7 +355,7 @@
 							Recordatorios
 						</div>
 						<div
-							style="font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--color-muted);margin-top:2px;"
+							style={`font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--color-muted);margin-top:2px;${mob ? "display:none;" : ""}`}
 						>
 							Avisos de aportes automáticos
 						</div>
@@ -384,11 +381,10 @@
 
 				<!-- Privacidad -->
 				<div
-					style="display:flex;align-items:center;gap:14px;padding:16px 0;"
+					style={`display:flex;align-items:center;gap:14px;padding:${mob ? 8 : 16}px 0;`}
 				>
 					<span
-						style="width:42px;height:42px;border-radius:12px;background:var(--color-surface-2);
-						color:var(--color-accent-deep);display:grid;place-items:center;"
+						style={`width:${mob?34:42}px;height:${mob?34:42}px;border-radius:11px;background:var(--color-surface-2);color:var(--color-accent-deep);display:grid;place-items:center;flex-shrink:0;`}
 					>
 						<Icon name="user" size={20} />
 					</span>
@@ -399,7 +395,7 @@
 							Privacidad
 						</div>
 						<div
-							style="font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--color-muted);margin-top:2px;"
+							style={`font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--color-muted);margin-top:2px;${mob ? "display:none;" : ""}`}
 						>
 							Tus metas solo las ves tú
 						</div>

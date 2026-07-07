@@ -17,7 +17,7 @@
 	// En móvil se muestra una vista a la vez (Meses / Categoría) para que quepa sin scroll.
 	let vista = $state<'meses' | 'cat'>('meses');
 	function calcMob() {
-		mob = typeof window !== 'undefined' && window.innerWidth < 860;
+		mob = typeof window !== 'undefined' && window.matchMedia('(max-width: 859px)').matches;
 	}
 	onMount(() => {
 		calcMob();
@@ -73,8 +73,8 @@
 
 	<div
 		class="enter-slide-l"
-		style={`border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:${mob ? 14 : 22}px 0;` +
-			`display:flex;flex-direction:${mob ? 'column' : 'row'};flex-wrap:wrap;gap:${mob ? 10 : 40}px;row-gap:10px;` +
+		style={`border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:${mob ? 11 : 22}px 0;` +
+			`display:flex;flex-direction:${mob ? 'column' : 'row'};flex-wrap:wrap;gap:${mob ? 8 : 40}px;row-gap:10px;` +
 			`align-items:${mob ? 'flex-start' : 'center'};justify-content:space-between;flex-shrink:0;`}
 	>
 		<div>
@@ -85,23 +85,23 @@
 				Ahorrado en total
 			</div>
 			<div
-				style={`font-family:var(--font-disp);font-weight:700;font-size:${mob ? 34 : 42}px;letter-spacing:-0.03em;line-height:1;margin-top:6px;color:var(--color-ink);white-space:nowrap;`}
+				style={`font-family:var(--font-disp);font-weight:700;font-size:${mob ? 29 : 42}px;letter-spacing:-0.03em;line-height:1;margin-top:${mob ? 4 : 6}px;color:var(--color-ink);white-space:nowrap;`}
 			>
 				{fmtMoney(allSaved, cur)}
 			</div>
 			<div
-				style="font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--color-muted);margin-top:7px;"
+				style={`font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--color-muted);margin-top:7px;${mob ? 'display:none;' : ''}`}
 			>
 				entre {GOALS.length} metas · {completed.length} ya cumplidas
 			</div>
 		</div>
 		<div
-			style={`display:flex;gap:${mob ? 28 : 40}px;margin-top:${mob ? '6px' : 0};flex-shrink:0;`}
+			style={`display:flex;gap:${mob ? 24 : 40}px;margin-top:${mob ? '2px' : 0};flex-shrink:0;`}
 		>
 			{#each [['Este mes', fmtCompact(thisMonth, cur)], ['Activas', activeGoals.length], ['Racha', `${USER.streak} días`]] as [l, v]}
 				<div>
 					<div
-						style="font-family:var(--font-disp);font-weight:700;font-size:22px;color:var(--color-ink);white-space:nowrap;"
+						style={`font-family:var(--font-disp);font-weight:700;font-size:${mob ? 19 : 22}px;color:var(--color-ink);white-space:nowrap;`}
 					>
 						{v}
 					</div>
@@ -131,7 +131,7 @@
 
 	<div
 		class="enter-slide-r"
-		style={`display:grid;grid-template-columns:${mob ? '1fr' : '1.35fr 1fr'};gap:18px;align-items:stretch;flex:1;min-height:0;animation-delay:120ms;`}
+		style={`display:grid;grid-template-columns:${mob ? '1fr' : '1.35fr 1fr'};grid-template-rows:minmax(0,1fr);gap:18px;align-items:stretch;flex:1;min-height:0;animation-delay:120ms;`}
 	>
 		{#if !mob || vista === 'meses'}
 			<Card style="height:100%;min-height:0;display:flex;flex-direction:column;">
@@ -164,12 +164,12 @@
 				Por categoría
 			</span>
 			<div
-				style="margin-top:16px;flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;justify-content:space-between;gap:14px;"
+				style={`margin-top:${mob ? 10 : 16}px;flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;justify-content:${mob ? 'flex-start' : 'space-between'};gap:${mob ? 10 : 14}px;`}
 			>
 				{#each catRows as [k, v]}
 					<div>
 						<div
-							style="display:flex;justify-content:space-between;margin-bottom:7px;"
+							style={`display:flex;justify-content:space-between;margin-bottom:${mob ? 5 : 7}px;`}
 						>
 							<span
 								style="font-family:var(--font-body);font-weight:700;font-size:14px;color:var(--color-ink);
@@ -187,7 +187,7 @@
 							</span>
 						</div>
 						<div
-							style="height:9px;border-radius:9px;background:var(--color-track);overflow:hidden;"
+							style={`height:${mob ? 7 : 9}px;border-radius:9px;background:var(--color-track);overflow:hidden;`}
 						>
 							<div
 								style={`height:100%;width:${(v / catMax) * 100}%;background:${CATS[k as keyof typeof CATS].hue};border-radius:9px;`}

@@ -27,7 +27,7 @@
 
 	let mob = $state(false);
 	function calcMob() {
-		mob = typeof window !== 'undefined' && window.innerWidth < 860;
+		mob = typeof window !== 'undefined' && window.matchMedia('(max-width: 859px)').matches;
 	}
 	onMount(() => {
 		calcMob();
@@ -314,7 +314,7 @@
 
 	{#snippet CardForm()}
 		<div
-			style={`width:100%;max-width:420px;background:var(--color-surface);border-radius:26px;padding:${mob ? '24px 22px 26px' : 'clamp(28px, 2.4vw, 38px)'};`}
+			style={`width:100%;max-width:420px;background:var(--color-surface);border-radius:26px;padding:${mob ? '20px 22px 22px' : 'clamp(28px, 2.4vw, 38px)'};`}
 		>
 			{#key mode + '|' + sent}
 				<div in:fly={{ y: 12, duration: 320, easing: cubicOut }}>
@@ -344,7 +344,7 @@
 									: 'Recuperar contraseña'}
 					</h2>
 					<p
-						style="font-family:var(--font-body);font-weight:600;font-size:13.5px;color:var(--color-muted);margin:0 0 22px;"
+						style={`font-family:var(--font-body);font-weight:600;font-size:13.5px;color:var(--color-muted);margin:0 0 ${mob ? 16 : 22}px;`}
 					>
 						{sent
 							? 'Sigue las instrucciones del enlace.'
@@ -391,7 +391,7 @@
 							</div>
 						</div>
 					{:else}
-						<div style="display:flex;flex-direction:column;gap:14px;">
+						<div style={`display:flex;flex-direction:column;gap:${mob ? 10 : 14}px;`}>
 							{#if mode === 'up'}
 								<Field label="Tu nombre">
 									<TextInput bind:value={name} placeholder="Nombre y apellido" icon="user" />
@@ -434,7 +434,7 @@
 									¿Olvidaste tu contraseña?
 								</button>
 							{/if}
-							<div style="margin-top:4px;">
+							<div style={mob ? '' : 'margin-top:4px;'}>
 								<Btn
 									full
 									size="lg"
@@ -452,7 +452,7 @@
 								</Btn>
 							</div>
 							{#if mode !== 'recover'}
-								<div style="display:flex;align-items:center;gap:12px;margin:2px 0;">
+								<div style={`display:flex;align-items:center;gap:12px;margin:${mob ? 0 : 2}px 0;`}>
 									<span style="flex:1;height:1px;background:var(--color-border);"></span>
 									<span
 										style="font-family:var(--font-body);font-weight:600;font-size:12px;color:var(--color-faint);"
@@ -490,7 +490,7 @@
 									Continuar con Google
 								</Btn>
 								<div
-									style="text-align:center;margin-top:6px;font-family:var(--font-body);font-weight:600;font-size:14px;color:var(--color-muted);"
+									style={`text-align:center;margin-top:${mob ? 2 : 6}px;font-family:var(--font-body);font-weight:600;font-size:14px;color:var(--color-muted);`}
 								>
 									{mode === 'in' ? '¿No tienes cuenta? ' : '¿Ya tienes cuenta? '}
 									<button
@@ -515,7 +515,7 @@
 	{#if mob}
 		<div
 			style={`position:relative;z-index:3;height:100%;overflow-y:auto;display:flex;flex-direction:column;justify-content:center;` +
-				`gap:${mode === 'up' ? 12 : 16}px;padding:18px 20px 20px;`}
+				`gap:${mode === 'up' ? 10 : 13}px;padding:12px 20px 14px;`}
 		>
 			<div style={`display:flex;align-items:center;gap:9px;color:${fg};`}>
 				<Logo size={30} />
