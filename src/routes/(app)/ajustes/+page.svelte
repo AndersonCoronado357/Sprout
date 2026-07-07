@@ -108,12 +108,66 @@
 
 	// Al activar Recordatorios: pide permiso y muestra una notificación de
 	// ejemplo (cómo se vería un recordatorio de aporte).
+	function urlBase64ToUint8Array(base64String: string): Uint8Array {
+		const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+		const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+		const raw = atob(base64);
+		const arr = new Uint8Array(raw.length);
+		for (let i = 0; i < raw.length; i++) arr[i] = raw.charCodeAt(i);
+		return arr;
+	}
+
+	// Suscribe el navegador a Web Push y guarda la suscripción en el servidor.
+	async function subscribePush() {
+		try {
+			if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+			const reg = await navigator.serviceWorker.ready;
+			const key = await fetch('/api/push/vapid')
+				.then((r) => r.json())
+				.then((d) => d.key as string)
+				.catch(() => '');
+			if (!key) return;
+			let sub = await reg.pushManager.getSubscription();
+			if (!sub) {
+				sub = await reg.pushManager.subscribe({
+					userVisibleOnly: true,
+					applicationServerKey: urlBase64ToUint8Array(key) as BufferSource
+				});
+			}
+			await fetch('/api/push/subscribe', {
+				method: 'POST',
+				headers: { 'content-type': 'application/json' },
+				body: JSON.stringify(sub)
+			});
+		} catch {
+			/* si falla la suscripción, la notificación local sigue funcionando */
+		}
+	}
+
+	async function unsubscribePush() {
+		try {
+			if (!('serviceWorker' in navigator)) return;
+			const reg = await navigator.serviceWorker.ready;
+			const sub = await reg.pushManager.getSubscription();
+			if (!sub) return;
+			await fetch('/api/push/unsubscribe', {
+				method: 'POST',
+				headers: { 'content-type': 'application/json' },
+				body: JSON.stringify({ endpoint: sub.endpoint })
+			});
+			await sub.unsubscribe();
+		} catch {
+			/* noop */
+		}
+	}
+
 	async function toggleNotif() {
 		const prendiendo = !notif;
 		notif = prendiendo;
 		notifMsg = '';
 		if (!prendiendo) {
 			localStorage.setItem('sprout-notif', 'off');
+			await unsubscribePush();
 			return;
 		}
 
@@ -133,6 +187,9 @@
 		}
 
 		localStorage.setItem('sprout-notif', 'on');
+
+		// Suscribe este dispositivo a push (para recibir recordatorios con la app cerrada).
+		await subscribePush();
 
 		// Ejemplo con una meta real: la que tiene aporte automático, o una activa.
 		const meta =
