@@ -131,7 +131,7 @@
 
 	<div
 		class="enter-slide-r"
-		style={`display:grid;grid-template-columns:${mob ? '1fr' : '1.35fr 1fr'};grid-template-rows:minmax(0,1fr);gap:18px;align-items:stretch;flex:1;min-height:0;animation-delay:120ms;`}
+		style={`display:grid;grid-template-columns:${mob ? '1fr' : '1.35fr 1fr'};${mob ? 'grid-template-rows:minmax(0,1fr);' : ''}gap:18px;align-items:stretch;flex:1;min-height:0;animation-delay:120ms;`}
 	>
 		{#if !mob || vista === 'meses'}
 			<Card style="height:100%;min-height:0;display:flex;flex-direction:column;">
@@ -164,7 +164,7 @@
 				Por categoría
 			</span>
 			<div
-				style={`margin-top:${mob ? 10 : 16}px;flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;justify-content:${mob ? 'flex-start' : 'space-between'};gap:${mob ? 10 : 14}px;`}
+				style={`margin-top:${mob ? 10 : 16}px;flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;justify-content:flex-start;gap:${mob ? 10 : 16}px;`}
 			>
 				{#each catRows as [k, v]}
 					<div>
