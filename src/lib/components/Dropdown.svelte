@@ -8,6 +8,7 @@
 		onChange?: (v: string) => void;
 		placeholder?: string;
 		big?: boolean;
+		compact?: boolean;
 		up?: boolean;
 	};
 	let {
@@ -16,6 +17,7 @@
 		onChange,
 		placeholder = 'Elegir',
 		big = false,
+		compact = false,
 		up = false
 	}: Props = $props();
 
@@ -75,11 +77,11 @@
 	<button
 		type="button"
 		onclick={toggle}
-		style={`width:100%;font-family:var(--font-body);font-weight:700;font-size:${big ? 18 : 15.5}px;` +
+		style={`width:100%;font-family:var(--font-body);font-weight:700;font-size:${big ? 18 : compact ? 14 : 15.5}px;` +
 			`background:color-mix(in oklab, var(--color-ink) ${open ? 10 : 6}%, var(--color-surface-2));` +
 			`border:1.5px solid transparent;` +
-			`border-radius:14px;padding:14px 16px;cursor:pointer;color:var(--color-ink);` +
-			`display:flex;align-items:center;justify-content:space-between;outline:none;`}
+			`border-radius:${compact ? 12 : 14}px;padding:${compact ? '9px 14px' : '14px 16px'};cursor:pointer;color:var(--color-ink);` +
+			`display:flex;align-items:center;justify-content:space-between;outline:none;${compact ? 'min-height:40px;' : ''}`}
 	>
 		<span
 			style={`display:inline-flex;align-items:center;gap:10px;color:${sel ? 'var(--color-ink)' : 'var(--color-faint)'};min-width:0;`}

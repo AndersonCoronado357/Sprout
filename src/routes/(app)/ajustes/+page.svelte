@@ -273,7 +273,7 @@
 			<div class="enter-soft" style="animation-delay:180ms;flex:{mob ? '0 0 auto' : '1'};display:flex;">
 			<Card
 				pad={mob ? '2px 16px' : '6px 22px'}
-				style={`flex:${mob ? '0 0 auto' : 1};display:flex;flex-direction:column;justify-content:${mob ? 'flex-start' : 'center'};width:100%;`}
+				style={`flex:${mob ? '0 0 auto' : 1};display:flex;flex-direction:column;justify-content:${mob ? 'flex-start' : 'space-between'};width:100%;`}
 			>
 				<!-- Tema -->
 				<div
@@ -329,6 +329,7 @@
 					</div>
 					<div style="width:150px;">
 						<Dropdown
+							compact
 							value={appState.cur}
 							onChange={(v) => (appState.cur = v as CurrencyCode)}
 							options={Object.keys(CURRENCIES).map((k) => ({

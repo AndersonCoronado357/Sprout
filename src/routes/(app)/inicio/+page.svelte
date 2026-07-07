@@ -58,7 +58,9 @@
 </svelte:head>
 
 <div
-	style="display:flex;flex-direction:column;gap:20px;flex:1;min-height:0;width:100%;"
+	style={mob
+		? 'display:flex;flex-direction:column;gap:20px;width:100%;'
+		: 'display:flex;flex-direction:column;gap:20px;flex:1;min-height:0;width:100%;'}
 >
 	<TopBar
 		big

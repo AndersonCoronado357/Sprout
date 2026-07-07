@@ -517,13 +517,22 @@
 			style={`position:relative;z-index:3;height:100%;overflow-y:auto;display:flex;flex-direction:column;justify-content:center;` +
 				`gap:${mode === 'up' ? 10 : 13}px;padding:12px 20px 14px;`}
 		>
-			<div style={`display:flex;align-items:center;gap:9px;color:${fg};`}>
-				<Logo size={30} />
-				<span style="font-family:var(--font-disp);font-weight:700;font-size:19px;letter-spacing:-0.02em;">
-					Sprout
+			<div style={`display:flex;align-items:flex-start;justify-content:space-between;gap:12px;color:${fg};`}>
+				<span style="display:inline-flex;align-items:center;gap:9px;">
+					<Logo size={30} />
+					<span style="font-family:var(--font-disp);font-weight:700;font-size:19px;letter-spacing:-0.02em;">
+						Sprout
+					</span>
 				</span>
+				{#key mode}
+					<span
+						style="text-align:right;font-family:var(--font-disp);font-weight:700;font-size:15px;line-height:1.16;letter-spacing:-0.01em;max-width:160px;opacity:0.92;"
+						in:fly={{ y: 8, duration: 340, easing: cubicOut }}
+					>
+						{cp.t1} {cp.t2}
+					</span>
+				{/key}
 			</div>
-			<div>{@render Headline()}</div>
 			<div style="display:flex;justify-content:center;">{@render CardForm()}</div>
 		</div>
 	{:else}
