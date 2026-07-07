@@ -274,9 +274,9 @@
 							<div style={`display:flex;flex-direction:column;gap:${mob ? 12 : 18}px;height:100%;`}>
 								<GoalCard goal={preview} {cur} onOpen={() => {}} />
 								<div
-									style={`background:var(--color-surface-2);border-radius:18px;padding:${mob ? '14px 16px' : '22px'};display:grid;grid-template-columns:1fr 1fr;gap:${mob ? '10px 16px' : '16px'};flex:1;align-content:center;position:relative;overflow:hidden;`}
+									style={`background:var(--color-surface-2);border-radius:18px;padding:${mob ? '16px 16px' : '32px 30px'};display:grid;grid-template-columns:1fr 1fr;gap:${mob ? '14px 16px' : '30px 20px'};flex:1;align-content:${mob ? 'space-around' : 'space-around'};position:relative;overflow:hidden;`}
 								>
-									<svg viewBox="0 0 320 260" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.1;color:var(--color-accent);pointer-events:none;" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="290" cy="232" r="122" /><circle cx="290" cy="232" r="86" /><circle cx="290" cy="232" r="50" /><circle cx="26" cy="34" r="58" /><circle cx="26" cy="34" r="32" /></g><g fill="currentColor"><path d="M16 148c0-18 20-30 56-30 0 24-20 30-56 30Z" /><path d="M306 96c0 18-20 30-56 30 0-24 20-30 56-30Z" opacity="0.85" /><circle cx="162" cy="20" r="4" /><circle cx="150" cy="242" r="4" /><circle cx="66" cy="226" r="3.5" /><circle cx="240" cy="30" r="3.5" /></g></svg>
+									<svg viewBox="0 0 320 260" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.13;color:var(--color-accent);pointer-events:none;" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="290" cy="232" r="122" /><circle cx="290" cy="232" r="86" /><circle cx="290" cy="232" r="50" /><circle cx="26" cy="34" r="58" /><circle cx="26" cy="34" r="32" /></g><g fill="currentColor"><path d="M16 148c0-18 20-30 56-30 0 24-20 30-56 30Z" /><path d="M306 96c0 18-20 30-56 30 0-24 20-30 56-30Z" opacity="0.85" /><circle cx="162" cy="20" r="4" /><circle cx="150" cy="242" r="4" /><circle cx="66" cy="226" r="3.5" /><circle cx="240" cy="30" r="3.5" /></g></svg>
 											{#each [['Objetivo', fmtMoney(Number(target), cur)], ['Fecha', fmtDate(date)], ['Categoría', CATS[cat].label], ['Faltan', `${daysBetween(TODAY, date)} días`]] as [l, v]}
 										<div>
 											<div
@@ -285,7 +285,7 @@
 												{l}
 											</div>
 											<div
-												style={`font-family:var(--font-disp);font-weight:600;font-size:${mob ? 15 : 17}px;color:var(--color-ink);margin-top:2px;`}
+												style={`font-family:var(--font-disp);font-weight:600;font-size:${mob ? 16 : 22}px;color:var(--color-ink);margin-top:3px;`}
 											>
 												{v}
 											</div>
