@@ -231,9 +231,9 @@
 								</Field>
 								{#if Number(target) >= 0}
 									<div
-										style={`background:var(--color-accent-soft);border-radius:18px;padding:${mob ? '18px 18px' : '24px 26px'};${mob ? 'flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;position:relative;overflow:hidden;' : ''}`}
+										style={`background:var(--color-accent-soft);border-radius:18px;padding:${mob ? '18px 18px' : '24px 26px'};flex:1;display:flex;flex-direction:column;justify-content:center;gap:${mob ? 12 : 18}px;position:relative;overflow:hidden;`}
 									>
-										{#if mob}<svg viewBox="0 0 200 200" style="position:absolute;right:-16%;bottom:-20%;width:64%;opacity:0.13;color:var(--color-accent-deep);pointer-events:none;" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="100" cy="100" r="92" stroke-width="2.5" /><circle cx="100" cy="100" r="64" stroke-width="2.5" /><circle cx="100" cy="100" r="36" stroke-width="2.5" /></svg>{/if}
+										<svg viewBox="0 0 320 260" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.14;color:var(--color-accent-deep);pointer-events:none;" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="290" cy="232" r="122" /><circle cx="290" cy="232" r="86" /><circle cx="290" cy="232" r="50" /><circle cx="26" cy="34" r="58" /><circle cx="26" cy="34" r="32" /></g><g fill="currentColor"><path d="M16 148c0-18 20-30 56-30 0 24-20 30-56 30Z" /><path d="M306 96c0 18-20 30-56 30 0-24 20-30 56-30Z" opacity="0.85" /><circle cx="162" cy="20" r="4" /><circle cx="150" cy="242" r="4" /><circle cx="66" cy="226" r="3.5" /><circle cx="240" cy="30" r="3.5" /></g></svg>
 											<div
 											style={`font-family:var(--font-body);font-weight:700;font-size:12.5px;color:var(--color-accent-deep);
 											margin-bottom:${mob ? 6 : 10}px;display:flex;align-items:center;gap:7px;`}
@@ -274,9 +274,9 @@
 							<div style={`display:flex;flex-direction:column;gap:${mob ? 12 : 18}px;height:100%;`}>
 								<GoalCard goal={preview} {cur} onOpen={() => {}} />
 								<div
-									style={`background:var(--color-surface-2);border-radius:18px;padding:${mob ? '14px 16px' : '22px'};display:grid;grid-template-columns:1fr 1fr;gap:${mob ? '10px 16px' : '16px'};${mob ? 'flex:1;align-content:center;position:relative;overflow:hidden;' : ''}`}
+									style={`background:var(--color-surface-2);border-radius:18px;padding:${mob ? '14px 16px' : '22px'};display:grid;grid-template-columns:1fr 1fr;gap:${mob ? '10px 16px' : '16px'};flex:1;align-content:center;position:relative;overflow:hidden;`}
 								>
-									{#if mob}<svg viewBox="0 0 200 200" style="position:absolute;right:-16%;bottom:-20%;width:64%;opacity:0.1;color:var(--color-accent);pointer-events:none;" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="100" cy="100" r="92" stroke-width="2.5" /><circle cx="100" cy="100" r="64" stroke-width="2.5" /><circle cx="100" cy="100" r="36" stroke-width="2.5" /></svg>{/if}
+									<svg viewBox="0 0 320 260" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.1;color:var(--color-accent);pointer-events:none;" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="290" cy="232" r="122" /><circle cx="290" cy="232" r="86" /><circle cx="290" cy="232" r="50" /><circle cx="26" cy="34" r="58" /><circle cx="26" cy="34" r="32" /></g><g fill="currentColor"><path d="M16 148c0-18 20-30 56-30 0 24-20 30-56 30Z" /><path d="M306 96c0 18-20 30-56 30 0-24 20-30 56-30Z" opacity="0.85" /><circle cx="162" cy="20" r="4" /><circle cx="150" cy="242" r="4" /><circle cx="66" cy="226" r="3.5" /><circle cx="240" cy="30" r="3.5" /></g></svg>
 											{#each [['Objetivo', fmtMoney(Number(target), cur)], ['Fecha', fmtDate(date)], ['Categoría', CATS[cat].label], ['Faltan', `${daysBetween(TODAY, date)} días`]] as [l, v]}
 										<div>
 											<div
