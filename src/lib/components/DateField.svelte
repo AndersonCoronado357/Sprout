@@ -194,7 +194,7 @@
 						<button
 							type="button"
 							onclick={() => pickDay(d)}
-							style={`height:42px;display:grid;place-items:center;border-radius:10px;border:none;cursor:pointer;position:relative;` +
+							style={`height:32px;display:grid;place-items:center;border-radius:9px;border:none;cursor:pointer;position:relative;` +
 								`font-family:var(--font-body);font-weight:${selected ? 800 : 600};font-size:14px;` +
 								`background:${selected ? 'var(--color-accent)' : 'transparent'};color:${selected ? '#062a12' : 'var(--color-ink)'};`}
 							onmouseenter={(e) => {
